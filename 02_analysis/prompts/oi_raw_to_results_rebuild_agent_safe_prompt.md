@@ -140,7 +140,7 @@ Create at minimum:
 
 - `oi_oro_dental_analysis/README.md`
 - `oi_oro_dental_analysis/oi_oro_dental_consolidated_v3.ipynb`
-- `oi_oro_dental_analysis/output_data/logs/issue_log_v3.csv`
+- `01_data/derived/issue_log_post_advisor_round2_v1_2026-04-18.csv` (legacy compatibility: `issue_log_v3.csv`)
 - `oi_oro_dental_analysis/output_data/logs/run_manifest_v3.json`
 - `oi_oro_dental_analysis/output_data/logs/export_registry_v3.csv`
 - `oi_oro_dental_analysis/output_data/logs/qc_gate_report_v3.md`
@@ -271,10 +271,10 @@ Do not silently:
 - merge categories
 - ignore unexpected missingness
 
-If a non-catastrophic issue can be handled safely, it must still be logged to `issue_log_v3.csv`.
+If a non-catastrophic issue can be handled safely, it must still be logged to `01_data/derived/issue_log_post_advisor_round2_v1_2026-04-18.csv` (legacy compatibility copy: `issue_log_v3.csv`).
 
 ## 14) Issue Logging Requirements
-`issue_log_v3.csv` must include at least:
+`issue_log_post_advisor_round2_v1_2026-04-18.csv` must include at least:
 
 - `issue_id`
 - `severity`

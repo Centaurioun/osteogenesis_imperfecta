@@ -26,7 +26,7 @@ This file encodes canonical execution rules, variable semantics, statistical gua
 - **Rule**: Only `occl_tip ∈ {1, 2, 3}` map to Angle Class I/II/III.
 - **When `occl_tip == 4`**: This is infraocclusion, NOT an Angle class.
   - Exclude from Angle classification (set primary `angle_sinifi_clean` to NaN).
-  - Create flag `infraoccluzyon_var = 1` (or clean alias `infraokluzyon_var_clean = 1`).
+  - Preserve legacy flag `infraokluzyon_var = 1`; use analysis-facing clean alias `infraokluzyon_var_clean = 1`.
   - Report prevalence of infraocclusion separately.
 - **Source**: `Manuscript_Data/06_ai_handoff_context/copilot-instructions.md`
 
@@ -58,7 +58,7 @@ This file encodes canonical execution rules, variable semantics, statistical gua
 - **No ordinary OLS regression** for binary outcomes. Use penalized logistic (Firth or L2-regularized) or Bayesian logistic.
 
 ### Mandatory patterns
-- **Binary endpoint** (e.g., `doku_anomalisi_var`, `gingivitis`):
+- **Binary endpoint** (e.g., `doku_anomalisi_any`, `gingivitis`):
   - Global test: exact or permutation χ² (Fisher–Freeman–Halton if possible).
   - Pairwise: 2×2 Fisher exact or penalized logistic.
   - Effect size: Cramer's V + prevalence differences with 95% Wilson CI.
@@ -141,10 +141,13 @@ This file encodes canonical execution rules, variable semantics, statistical gua
 | `gen_mutasyonu` | categorical | Derive runtime groups: n≥6 separate, else "Other" | Group COL1A1, COL1A2, FKBP10, P3H1, Other |
 | `occl_tip` | ordinal 1–4 | 1–3 = Angle; 4 = infraocclusion | If 4, set `angle_sinifi_clean=NaN`; keep separate infra flag |
 | `angle_sinifi_clean` | categorical (1/2/3 or missing) | Primary post-advisor Angle variable | Use only non-missing eligible rows in Angle-family analyses |
+| `infraokluzyon_var_clean` | binary (0/1) | Primary clean infra flag | Derived as `occl_tip==4`; keep separate from Angle classes |
+| `infraokluzyon_var` | binary (0/1) | Legacy/raw compatibility flag | Preserve for provenance/backward compatibility |
 | `dmft_dmft` | count | Interpret as count, not DMFT index | `caries_count_total = dmft_dmft`, `caries_any = (dmft_dmft > 0)` |
-| `doku_anomalisi_var` | binary (0/1) | Primary endpoint (binary) | Kruskal–Wallis for continuous analogs; exact test for binary |
+| `doku_anomalisi_any` | binary (0/1) | Primary post-advisor binary anomaly endpoint | Exact/permutation χ² family analyses |
+| `doku_anomalisi_var` | binary (0/1) | Legacy compatibility endpoint | Retained for backward compatibility / cross-checks |
 | `gingivitis` | binary (0/1) | Primary endpoint (binary) | Exact/permutation χ², Holm correction |
-| `caries_any` | binary (0/1) | Primary endpoint (binary) | Exact/permutation χ², or Kruskal–Wallis if using `caries_count` |
+| `caries_any` | binary (0/1) | Primary endpoint (binary) | Exact/permutation χ², or Kruskal–Wallis if using `caries_count_total` |
 | `yas` | continuous | Primary covariate | Report in years; use in models |
 | `dentisyon_donemi_kod` | ordinal 1–3 | Derived from age; do NOT use with age in same model | Stratification only (descriptive) |
 

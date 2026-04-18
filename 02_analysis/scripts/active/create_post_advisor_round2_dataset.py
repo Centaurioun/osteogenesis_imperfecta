@@ -14,7 +14,8 @@ def build_post_advisor_dataset(repo_root: Path) -> tuple[Path, Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     out_path = out_dir / "osteogenesis_imperfecta_analysis_ready_post_advisor_round2_v1_2026-04-18.csv"
-    issue_path = out_dir / "issue_log_v3.csv"
+    issue_path = out_dir / "issue_log_post_advisor_round2_v1_2026-04-18.csv"
+    legacy_issue_path = out_dir / "issue_log_v3.csv"
 
     required_cols = {
         "hasta_kodu",
@@ -166,7 +167,9 @@ def build_post_advisor_dataset(repo_root: Path) -> tuple[Path, Path]:
     if not issues:
         add_issue("INFO", "QC", "No inconsistencies detected while creating post-advisor dataset")
 
-    pd.DataFrame(issues).to_csv(issue_path, index=False)
+    issue_df = pd.DataFrame(issues)
+    issue_df.to_csv(issue_path, index=False)
+    issue_df.to_csv(legacy_issue_path, index=False)
     return out_path, issue_path
 
 

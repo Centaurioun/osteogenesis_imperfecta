@@ -30,3 +30,11 @@ osteogenesis_imperfecta/
 - Legacy notebooks/scripts: `02_analysis/notebooks/legacy/`, `02_analysis/scripts/legacy/`
 - Legacy outputs: `03_outputs/legacy/`
 - Archived waves and move logs: `99_archive/`
+
+## Post-advisor semantic control path (additive)
+
+- Controlling report: `OI_POST_ADVISOR_DATA_SEMANTICS_AND_ROUND2_REANALYSIS_STATUS_REPORT.md`
+- Decision memo: `data_decisions_post_advisor_round2.md`
+- Codebook addendum: `01_data/reference/codebook_post_advisor_round2_addendum_v1.md`
+- Analysis-ready semantic dataset: `01_data/derived/osteogenesis_imperfecta_analysis_ready_post_advisor_round2_v1_2026-04-18.csv`
+- Builder script: `02_analysis/scripts/active/create_post_advisor_round2_dataset.py`

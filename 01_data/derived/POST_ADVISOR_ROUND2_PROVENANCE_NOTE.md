@@ -23,7 +23,8 @@ This note records the additive semantic revision step performed before any round
 - New analysis-ready dataset:
   - `01_data/derived/osteogenesis_imperfecta_analysis_ready_post_advisor_round2_v1_2026-04-18.csv`
 - New issue log for this revision step:
-  - `01_data/derived/issue_log_v3.csv`
+  - `01_data/derived/issue_log_post_advisor_round2_v1_2026-04-18.csv`
+  - Legacy compatibility copy retained: `01_data/derived/issue_log_v3.csv`
 
 ## Key semantic controls applied
 

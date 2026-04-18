@@ -1,6 +1,6 @@
 # WORKSPACE_INDEX
 
-Last updated: 2026-04-17
+Last updated: 2026-04-18
 Reorg wave: `reorg_wave1_2026-04-17`
 
 ## Canonical active lane
@@ -16,6 +16,15 @@ Reorg wave: `reorg_wave1_2026-04-17`
 - Data (raw): `01_data/raw/osteogenesis_imperfecta_camber_input_minimal_v1.csv`
 - Data references: `01_data/reference/codebook_v3_fixed.md`, `01_data/reference/gene_map_v1.csv`
 - Manuscript package: `Manuscript_Data/`
+
+## Post-advisor semantic revision layer (round-two preparation)
+
+- Controlling status brief: `OI_POST_ADVISOR_DATA_SEMANTICS_AND_ROUND2_REANALYSIS_STATUS_REPORT.md`
+- Binding decision memo: `data_decisions_post_advisor_round2.md`
+- Additive codebook layer: `01_data/reference/codebook_post_advisor_round2_addendum_v1.md`
+- Versioned post-advisor analysis-ready dataset: `01_data/derived/osteogenesis_imperfecta_analysis_ready_post_advisor_round2_v1_2026-04-18.csv`
+- Dataset builder script: `02_analysis/scripts/active/create_post_advisor_round2_dataset.py`
+- Provenance note: `01_data/derived/POST_ADVISOR_ROUND2_PROVENANCE_NOTE.md`
 
 ## Governance and prompts
 

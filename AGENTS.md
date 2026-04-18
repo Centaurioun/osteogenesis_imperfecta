@@ -4,7 +4,7 @@ Bu çalışma alanı, küçük örneklemli (n=34) pediatrik bir hastalık raporl
 
 ## 1. Planlama ve Yürütme Mimarisi
 - **Çok Adımlı Planlama:** Kullanıcıdan gelen görevleri aceleyle doğrudan koda dökmek yasaktır. Önce adım adım bir analiz süreci ve stratejisi tasarlayın (Örn: Keşif -> Hipotez inşası -> Kod -> Hata Yakalama -> Teyit). Gerekiyorsa `switch_agent` mantığı ile keşif modunu kullanın.
-- **Mutlak Saydamlık:** Kodla üretilen ama analizden mantıksal sebeplerle dışlanan vakalar (`hasta_kodu`), birleştirilmiş kategoriler veya göz ardı edilen anomaliler, sadece kod bloğunda kalmamalı, kullanıcının Markdown çıktısına açık bir "Karar Gerekçesi" ile sunulup ayrıca `issue_log_v3.csv` dosyasına yazılmalıdır.
+- **Mutlak Saydamlık:** Kodla üretilen ama analizden mantıksal sebeplerle dışlanan vakalar (`hasta_kodu`), birleştirilmiş kategoriler veya göz ardı edilen anomaliler, sadece kod bloğunda kalmamalı, kullanıcının Markdown çıktısına açık bir "Karar Gerekçesi" ile sunulup ayrıca `01_data/derived/issue_log_post_advisor_round2_v1_2026-04-18.csv` dosyasına yazılmalıdır. Legacy uyumluluk için eş içerikli `issue_log_v3.csv` kopyası korunabilir.
 
 ## 2. Katı Analitik Standartlar (N=34 Kısıtlamaları)
 - **Küçük Hücre Yasağı (Categorical Data):** Çapraz tablolarda veya hipotez testlerinde beklenen frekans (expected cell count) < 5 çıkarsa, **Standart Pearson Ki-Kare TESPİT EDİLDİĞİ AN TERK EDİLMELİDİR.** Yerine mutlak suretle **Permütasyon Testi (tercihen >10k iterasyon) veya Fisher-Freeman-Halton / Kesin Exact** hesaplaması devreye sokulmalıdır.

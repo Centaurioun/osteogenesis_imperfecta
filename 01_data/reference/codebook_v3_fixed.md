@@ -2,6 +2,14 @@
 
 Bu sözlük, temizlenmiş veri setindeki değişkenlerin veri tipi ve kodlamasını özetler.
 
+> [!IMPORTANT]
+> Bu dosya, temel temizlenmiş veri seti için geçerliliğini korur.
+> Round-two post-advisor semantik yorum katmanı için zorunlu eş dosya:
+> `01_data/reference/codebook_post_advisor_round2_addendum_v1.md`
+>
+> Round-two hazırlık/yeniden-analiz görevlerinde bu temel codebook **tek başına yeterli değildir**;
+> base codebook + post-advisor addendum birlikte okunmalıdır.
+
 ## `hasta_kodu`
 - Tip: ID (sayısal)
 

@@ -8,6 +8,11 @@ Amaç: Bu çalışma için Camber’da hedeflenen analizleri **daha sağlam anal
 
 ## 0) Rol, kapsam ve mutlak kurallar
 
+**Post-advisor semantic control documents (zorunlu):**
+- `OI_POST_ADVISOR_DATA_SEMANTICS_AND_ROUND2_REANALYSIS_STATUS_REPORT.md`
+- `data_decisions_post_advisor_round2.md`
+- `01_data/reference/codebook_post_advisor_round2_addendum_v1.md`
+
 **Rolün:** Biyostatistik/epidemiyoloji odaklı “research engineer” gibi davran.
 
 **Mutlak kurallar**
@@ -110,11 +115,13 @@ Kontroller:
 > Bu dönüşümler, çalışma sahibinin açıklamaları ışığında “analitik gerçek” kabul edilerek uygulanacak; dış bilgi eklenmeyecek.
 
 ### 4.1. `occl_tip` ayrıştırması (Kritik)
-- `infraokluzyon_var = 1 if occl_tip == 4 else 0`
+- `infraokluzyon_var_clean = 1 if occl_tip == 4 else 0`
 - `angle_sinifi_clean = occl_tip` yalnızca `occl_tip in {1,2,3}` için; `occl_tip==4` ise `NaN`
 
+Not: Legacy/raw `infraokluzyon_var` korunabilir; round-two analizde öncelikli alan `infraokluzyon_var_clean` olmalıdır.
+
 **Zorunlu raporla**
-- `infraokluzyon_var` prevalansı (n, %)
+- `infraokluzyon_var_clean` prevalansı (n, %)
 - `angle_sinifi_clean` dağılımı (1–3)
 
 **Kırmızı bayrak:**
@@ -133,8 +140,10 @@ Bu alanı “DMFT indeksi” gibi varsayma. Analizde:
   - Varsayılan olarak analizde `caries_any_rt` kullan
 
 ### 4.3. Doku anomalisi (tek baskın tip)
-- `doku_anomalisi_var = 1 if doku_anomalisi != 0 else 0`
+- `doku_anomalisi_any = 1 if doku_anomalisi != 0 else 0`
 - `doku_anomalisi` (1–7) dağılımı: “baskın tip” olarak deskriptif sun.
+
+Not: `doku_anomalisi_var` legacy adı yalnızca backward-compatibility amaçlı tutulmalıdır.
 
 ### 4.4. Gen gruplama (runtime)
 - `gene_symbol` çıkarımı:
@@ -154,7 +163,7 @@ Bu alanı “DMFT indeksi” gibi varsayma. Analizde:
 ### Table 1 — Overall
 - n
 - Yaş (SAP’a göre özet: median/IQR veya mean/SD)
-- Prevalanslar: `doku_anomalisi_var`, `gingivitis`, `caries_any`, `infraokluzyon_var`, vb.
+- Prevalanslar: `doku_anomalisi_any`, `gingivitis`, `caries_any`, `infraokluzyon_var_clean`, vb.
 - İkili oranlar için **Wilson CI** (veya SAP’ta istenen yöntem)
 
 ### Table 2 — By gene_group_rt
@@ -169,7 +178,7 @@ Bu alanı “DMFT indeksi” gibi varsayma. Analizde:
 ## 6) İnferans (Table 3) — Primary + supporting
 
 ### 6.1. Primary endpoints
-- `doku_anomalisi_var` (binary)
+- `doku_anomalisi_any` (binary)
 - `gingivitis` (binary)
 - `caries_any` (binary)
 - `caries_count_total` (sayım; primary nonparametric)
@@ -180,7 +189,7 @@ Binary sonlanımlar için (gene_group_rt × 0/1):
 - **Permutation p** (en az 1,000; tercihen 10,000)
 - Beklenen hücre küçükse (örn. <5): permütasyon p’yi “ana p” gibi raporla.
 
-`caries_count` için:
+`caries_count_total` için:
 - Kruskal–Wallis
 - Etki büyüklüğü: epsilon-squared (ε²)
 
@@ -292,7 +301,7 @@ Notebook içinde PASS/FAIL üreten bir checklist oluştur.
 
 ### 11.1. Kavramsal doğruluk
 - `occl_tip==4` Angle sınıfı olarak analiz edilmedi → PASS
-- `dmft_dmft` “DMFT indeksi” gibi yorumlanmadı; caries_count olarak ele alındı → PASS
+- `dmft_dmft` “DMFT indeksi” gibi yorumlanmadı; `caries_count_total` olarak ele alındı → PASS
 - `gen_group` (datasetten) predictor olarak kullanılmadı → PASS
 
 ### 11.2. Matematiksel tutarlılık
@@ -312,7 +321,8 @@ Checklist FAIL ise: final teslim yok; “iterasyon döngüsü” çalışacak.
 
 ## 12) ISSUE LOG (zorunlu, makine-okunur)
 
-Her risk/uyarı/hata için CSV log üret: `issue_log_v3.csv`
+Her risk/uyarı/hata için CSV log üret: `01_data/derived/issue_log_post_advisor_round2_v1_2026-04-18.csv`
+(Compatibility için istenirse eş içerikli `issue_log_v3.csv` kopyası da tutulabilir.)
 Sütunlar:
 - severity (INFO/WARN/FAIL)
 - category (QC/TRANSFORM/INFERENCE/CV/EXPORT)
@@ -346,7 +356,7 @@ Aşağıdaki dosyalar üretilmiş olmalı:
 - `outputs_v3/robustness_panel_v3.csv`
 - `outputs_v3/cv_panel_v3.csv`
 - `verified_master_table_v3.csv`
-- `issue_log_v3.csv`
+- `01_data/derived/issue_log_post_advisor_round2_v1_2026-04-18.csv`
 
 Notebook’un son hücresinde: `DONE — QC PASS` yaz.
 
