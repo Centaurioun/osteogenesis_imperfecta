@@ -1,0 +1,15 @@
+variable,value
+N,34
+yas,median 11.000 (IQR 6.000-14.750)
+dmft_dmft,median 1.500 (IQR 0.000-3.750)
+occl_tip,median 1.000 (IQR 1.000-1.000)
+doku_anomalisi,median 0.000 (IQR 0.000-1.750)
+angle_sinifi,median 1.000 (IQR 1.000-1.000)
+dentisyon_donemi_kod,median 2.000 (IQR 2.000-3.000)
+gingivitis,11/34 (32.4%)
+doku_anomalisi_var,10/34 (29.4%)
+caries_any,24/34 (70.6%)
+infraokluzyon_var,1/34 (2.9%)
+gen_group,"{""COL1A2"": 7, ""P3H1"": 8, ""COL1A1"": 6, ""Other"": 5, ""FKBP10"": 8}"
+gen_mutasyonu,"{""COL1A2"": 7, ""P3H1"": 8, ""COL1A1"": 6, ""WNT1"": 1, ""PRDM5"": 1, ""ALX3"": 1, ""LTBP3"": 1, ""FKBP10"": 8, ""LRP5"": 1}"
+gen_kodu,"{""3"": 7, ""7"": 8, ""2"": 6, ""9"": 1, ""8"": 1, ""1"": 1, ""6"": 1, ""4"": 8, ""5"": 1}"

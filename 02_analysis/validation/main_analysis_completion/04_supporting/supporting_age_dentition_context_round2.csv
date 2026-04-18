@@ -1,0 +1,7 @@
+analysis,test,n1,n0,statistic,p,n,expected_min,sparse_flag
+age_by_doku_anomalisi_var_rt,mann_whitney_u,10.0,24.0,114.0,0.8348865747258625,,,
+dentition_by_doku_anomalisi_var_rt,chi2_with_sparse_flag,,,0.7707341269841268,0.6802009134527421,34.0,2.3529411764705883,True
+age_by_gingivitis,mann_whitney_u,11.0,23.0,213.0,0.001501561771167735,,,
+dentition_by_gingivitis,chi2_with_sparse_flag,,,11.045360436664783,0.003995125770298575,34.0,2.588235294117647,True
+age_by_caries_any_rt,mann_whitney_u,24.0,10.0,209.0,0.0007966231489792634,,,
+dentition_by_caries_any_rt,chi2_with_sparse_flag,,,13.013095238095238,0.001493627402866278,34.0,2.3529411764705883,True

@@ -1,0 +1,17 @@
+analysis_id,manuscript_eligibility,main_text_or_supplement_or_exclude,reason,recommended_wording_level
+A01,supplementary-only,supplement,Age comparison not a primary inferential endpoint in FINAL.1.2,descriptive only
+A02,legacy-reference-only,exclude_from_main_text,Legacy OCCL significance depends on coding that mixes infraocclusion with Angle classes,do not use in manuscript
+A03,supplementary-only,supplement,Round2 numerical rerun completed; endpoint remains outside primary inferential family,descriptive only
+A04,supplementary-only,supplement,Round2 numerical rerun completed; endpoint remains outside primary inferential family,descriptive only
+A05,supplementary-only,supplement,Round2 numerical rerun completed; endpoint remains outside primary inferential family,descriptive only
+A06,supplementary-only,supplement,Round2 numerical rerun completed; endpoint remains outside primary inferential family,descriptive only
+A07,supplementary-only,supplement,Round2 numerical rerun completed; endpoint remains outside primary inferential family,descriptive only
+A08,supplementary-only,supplement,Round2 numerical rerun completed; endpoint remains outside primary inferential family,descriptive only
+A09,supplementary-only,supplement,Round2 numerical rerun completed; endpoint remains outside primary inferential family,descriptive only
+A10,supplementary-only,supplement,Round2 numerical rerun completed; endpoint remains outside primary inferential family,descriptive only
+A11,supplementary-only,supplement,Round2 numerical rerun completed; endpoint remains outside primary inferential family,descriptive only
+A12,manuscript-eligible,main_text,Correction-sensitive exploratory endpoint; robustness and CV caveats apply,exploratory signal
+A13,manuscript-eligible,main_text,Definition-sensitive and correction-sensitive comparative endpoint,correction-sensitive comparative note
+A14,manuscript-eligible,main_text,Stable null finding; keep interpretation fragility-aware,fragility-aware comparative note
+A15,manuscript-eligible,main_text,Descriptive profile authoritative under clarified coding,descriptive only
+A16,manuscript-eligible,main_text,Runtime group distribution is descriptive framework support,descriptive only

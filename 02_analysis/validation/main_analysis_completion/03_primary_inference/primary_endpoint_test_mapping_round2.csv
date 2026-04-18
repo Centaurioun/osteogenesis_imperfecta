@@ -1,0 +1,5 @@
+endpoint,test,effect_size_name,primary_family,small_sample_rationale
+doku_anomalisi_var_rt,Chi2_Perm,CramerV,primary_classic_and_binary_perm,Sparse expected cells -> permutation support
+gingivitis,Chi2_Perm,CramerV,primary_classic_and_binary_perm,Sparse expected cells -> permutation support
+caries_any_rt,Chi2_Perm,CramerV,binary_perm_only,Sparse expected cells -> permutation support
+caries_count,Kruskal,Epsilon2,primary_classic_only,Count-like non-normal endpoint -> nonparametric test

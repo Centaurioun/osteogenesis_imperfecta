@@ -1,0 +1,6 @@
+Item,Change
+Artifact Structure,Added outputs_FINAL_1/
+CV CI,Added delta_auc_ci_low and high via Bootstrap.
+Robustness/CV Panels,"Made primary panels exclusively Primary, moved k3/4 to supplementary."
+Master Table,Integrated CV CI and primary_cv_method.
+Issue Log,Always strictly formatted with standard headers.

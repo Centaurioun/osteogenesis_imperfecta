@@ -1,0 +1,5 @@
+endpoint,Primary_p_classic,k3_p_classic,k4_p_classic,Primary_p_perm,k3_p_perm,k4_p_perm,delta_p_classic_max,inference_shift_05,k3_is_duplicate_of,k4_is_duplicate_of
+doku_anomalisi_var_rt,0.09603389929848109,0.09603389929848109,0.09603389929848109,0.0941,0.0941,0.0941,0.0,False,Primary,Primary
+gingivitis,0.7008835742096772,0.7008835742096772,0.7008835742096772,0.7666,0.7666,0.7666,0.0,False,Primary,Primary
+caries_any_rt,0.08309492786795941,0.08309492786795941,0.08309492786795941,0.0739,0.0739,0.0739,0.0,False,Primary,Primary
+caries_count,0.25680838659371413,0.25680838659371413,0.25680838659371413,,,,0.0,False,Primary,Primary

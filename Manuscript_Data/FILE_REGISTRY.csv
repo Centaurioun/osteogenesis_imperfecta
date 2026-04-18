@@ -1,0 +1,63 @@
+relative_path,extension,top_level_group,purpose
+01_protocol_and_docs/ABBREVIATIONS_GLOSSARY.md,.md,01_protocol_and_docs,Glossary of abbreviations and high-risk variable labels used in the manuscript package.
+01_protocol_and_docs/MANUSCRIPT_ASSEMBLY_GUIDE.md,.md,01_protocol_and_docs,Section-by-section manuscript writing guide mapping files to Introduction Methods Results Discussion and Supplementary.
+01_protocol_and_docs/TABLE_FOOTNOTES_AND_FIGURE_LEGENDS.md,.md,01_protocol_and_docs,Ready-to-use table footnotes and figure legend drafts for manuscript assembly.
+01_protocol_and_docs/camber_sap_v2_publication_ready.md,.md,01_protocol_and_docs,Statistical analysis plan; analysis rationale and decision rules.
+01_protocol_and_docs/camber_study_brief_v1.md,.md,01_protocol_and_docs,"Study design, variable intent, and cohort summary source document."
+01_protocol_and_docs/codebook_v3_fixed.md,.md,01_protocol_and_docs,Data dictionary for raw and derived variables.
+01_protocol_and_docs/final_1.md,.md,01_protocol_and_docs,FINAL.1.2 investigator-facing interpretation of all major findings.
+01_protocol_and_docs/final_1_2_publication_ready_gorsel_paketi_figur_plani_deterministik_failsafe_uretim_scripti.md,.md,01_protocol_and_docs,Historical figure-generation plan and fail-fast rules; package policy notes inside clarify that PDF and ZIP references are provenance not current package requirements.
+01_protocol_and_docs/kongre_abstract_paketi_final_1.md,.md,01_protocol_and_docs,Abstract-ready narrative snippets aligned to FINAL.1.2 results.
+01_protocol_and_docs/Osteogenesis-Imperfecta-Oro-Denta-Bulgular-Etik-Kurul-Basvuru-Rev3.md,.md,01_protocol_and_docs,Ethics/IRB narrative background and study framing.
+01_protocol_and_docs/publication_tables_v1_csv_ciktilari_ozeti.md,.md,01_protocol_and_docs,Legacy publication table overview and naming aid.
+01_protocol_and_docs/README_Camber_Upload.md,.md,01_protocol_and_docs,Original upload package instructions.
+01_protocol_and_docs/statistical_report_v1.md,.md,01_protocol_and_docs,Early statistical report retained for provenance and cross-checking rather than as the authoritative FINAL.1.2 result source.
+02_source_data/metadata/codebook_v3_fixed.md,.md,02_source_data,Copied metadata dictionary near the raw data for convenience.
+02_source_data/metadata/gene_map_v1.csv,.csv,02_source_data,Gene symbol to grouped-category mapping reference.
+02_source_data/raw_data/osteogenesis_imperfecta_camber_input_minimal_v1.csv,.csv,02_source_data,Primary analysis input dataset used by FINAL pipelines.
+02_source_data/raw_data/osteogenesis_imperfecta_original_data.csv,.csv,02_source_data,Archived original/rawer source dataset for provenance.
+03_analysis_scripts/make_figures_final_1_2.py,.py,03_analysis_scripts,English figure generation script using FINAL.1.2 outputs.
+03_analysis_scripts/make_figures_FINAL_1_2_TR.py,.py,03_analysis_scripts,Turkish figure generation script using FINAL.1.2 outputs.
+03_analysis_scripts/oi_oro_dental_master_FINAL_1_2.ipynb,.ipynb,03_analysis_scripts,Notebook form of the FINAL.1.2 analysis pipeline.
+03_analysis_scripts/oi_oro_dental_master_FINAL_1_2.py,.py,03_analysis_scripts,Main deterministic FINAL.1.2 analysis pipeline.
+04_final_outputs/OUTPUT_SCHEMA_AND_VARIABLE_LINEAGE.md,.md,04_final_outputs,Defines output columns and raw to runtime to manuscript variable lineage.
+04_final_outputs/REPRODUCIBILITY_ENVIRONMENT.md,.md,04_final_outputs,Explains authoritative execution entry points manifest interpretation and reproducibility boundaries.
+04_final_outputs/TRANSPARENCY_NOTES.md,.md,04_final_outputs,Clarifies warnings versus issues duplicate scenarios and figure-numbering carry-over.
+04_final_outputs/tables_csv_and_logs/consistency_diff_FINAL_1_1_vs_FINAL_1_2.csv,.csv,04_final_outputs,Proof that FINAL.1.2 preserved core FINAL.1.1 numbers.
+04_final_outputs/tables_csv_and_logs/cv_panel_FINAL.csv,.csv,04_final_outputs,Primary cross-validation panel for age vs age+gene models with estimator labels.
+04_final_outputs/tables_csv_and_logs/issue_log_FINAL.csv,.csv,04_final_outputs,Final issue log and fail-fast trace.
+04_final_outputs/tables_csv_and_logs/publication_table1_overall_FINAL.csv,.csv,04_final_outputs,"Overall descriptive table with prevalence, age summary, Wilson CIs."
+04_final_outputs/tables_csv_and_logs/publication_table2_by_gene_group_FINAL.csv,.csv,04_final_outputs,Descriptive stratification by runtime gene groups.
+04_final_outputs/tables_csv_and_logs/publication_table3_inferential_FINAL.csv,.csv,04_final_outputs,Primary inferential results: permutation/chi-square/Kruskal-Wallis/effect sizes/Holm.
+04_final_outputs/tables_csv_and_logs/robustness_panel_FINAL.csv,.csv,04_final_outputs,Primary robustness checks: leave-one-out and infraocclusion exclusion sensitivity.
+04_final_outputs/tables_csv_and_logs/run_manifest.json,.json,04_final_outputs,"Execution manifest with software versions, seed, hashes, and iteration counts."
+04_final_outputs/tables_csv_and_logs/supplementary_cv_FINAL.csv,.csv,04_final_outputs,All scenario-level CV outputs.
+04_final_outputs/tables_csv_and_logs/supplementary_gene_group_map_FINAL.csv,.csv,04_final_outputs,Runtime gene grouping map for all scenarios.
+04_final_outputs/tables_csv_and_logs/supplementary_robustness_FINAL.csv,.csv,04_final_outputs,All scenario-level robustness outputs.
+04_final_outputs/tables_csv_and_logs/supplementary_sensitivity_FINAL.csv,.csv,04_final_outputs,All scenario-level inferential sensitivity outputs.
+04_final_outputs/tables_csv_and_logs/verified_master_table_FINAL.csv,.csv,04_final_outputs,"Unified table merging inferential, robustness, and CV summaries."
+05_figures/english/FigA_prevalence.png,.png,05_figures,Overall prevalence figure for manuscript/presentation.
+05_figures/english/FigB_gene_groups.png,.png,05_figures,Primary gene-group distribution figure.
+05_figures/english/FigC_inferential_summary.png,.png,05_figures,Inferential summary figure showing effect sizes and p-values.
+05_figures/english/FigE_robustness.png,.png,05_figures,Robustness visualization for LOO and infraocclusion sensitivity.
+05_figures/english/FigF_cv_delta_auc.png,.png,05_figures,CV comparison figure for age vs age+gene models.
+05_figures/turkish/FigA_prevalans_TR.png,.png,05_figures,Turkish prevalence figure.
+05_figures/turkish/FigB_gen_grup_TR.png,.png,05_figures,Turkish gene-group distribution figure.
+05_figures/turkish/FigC_inferans_ozet_TR.png,.png,05_figures,Turkish inferential summary figure.
+05_figures/turkish/FigE_robustluk_TR.png,.png,05_figures,Turkish robustness figure.
+05_figures/turkish/FigF_cv_delta_auc_TR.png,.png,05_figures,Turkish CV figure.
+06_ai_handoff_context/DOCUMENTATION_AUDIT_TRAIL.md,.md,06_ai_handoff_context,Records the six-cycle documentation hardening pass requested for the manuscript package.
+06_ai_handoff_context/FINAL_HANDOFF_QUICKSTART.md,.md,06_ai_handoff_context,Fast start guide marking authoritative FINAL.1.2 files versus archival context for AI handoff.
+06_ai_handoff_context/AGENTS.md,.md,06_ai_handoff_context,Repository-level analysis rules and small-sample statistical constraints.
+06_ai_handoff_context/copilot-instructions.md,.md,06_ai_handoff_context,Project-specific AI guardrails and clinical red lines.
+06_ai_handoff_context/copilot_vscode_oturumu_camber_oi_oro_dental_analiz_rebuild_prompt_iteratif_qc_cross_validation.md,.md,06_ai_handoff_context,Historical rebuild prompt and session context for AI assistants; contains archival v3 references and should not override FINAL.1.2 authority.
+06_ai_handoff_context/prompt.md,.md,06_ai_handoff_context,Archived prompt provenance.
+06_ai_handoff_context/python-analysis.instructions.md,.md,06_ai_handoff_context,Python/notebook analysis standards including determinism and fail-fast rules.
+06_ai_handoff_context/vscode_custum_instructions_documentation.md,.md,06_ai_handoff_context,Additional editor/assistant instruction provenance.
+07_provenance_and_history/issue_log_v3.csv,.csv,07_provenance_and_history,Earlier pipeline issue log for provenance.
+07_provenance_and_history/issue_log_v3_1.csv,.csv,07_provenance_and_history,Earlier pipeline issue log for provenance.
+07_provenance_and_history/verified_master_table_v3.csv,.csv,07_provenance_and_history,Earlier integrated result snapshot for provenance.
+07_provenance_and_history/verified_master_table_v3_1.csv,.csv,07_provenance_and_history,Earlier integrated result snapshot for provenance.
+ANALYSIS_RESULT_MAP.csv,.csv,root,Machine-readable map from each analysis to its outputs and figures.
+FILE_REGISTRY.csv,.csv,root,Machine-readable inventory of every file in Manuscript_Data.
+README_Manuscript_Data.md,.md,root,Human-readable master guide to the package.

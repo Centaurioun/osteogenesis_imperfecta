@@ -1,0 +1,8 @@
+analysis_id,endpoint,scenario,test,p_classic,p_permutation,effect_size_name,effect_size_value,p_holm,robustness_note,source_file
+A12,doku_anomalisi_var_rt,Primary,Chi2_Perm,0.09603389929848109,0.0941,CramerV,0.48145159146131705,0.2217,"LOO p-range 0.0392-0.1502; infra-exclusion delta p=0.0164",publication_table3_inferential_FINAL.csv + robustness_panel_FINAL.csv
+A14,gingivitis,Primary,Chi2_Perm,0.7008835742096772,0.7666,CramerV,0.25378742228960743,0.7666,"LOO p-range 0.4084-0.8460; infra-exclusion delta p=0.0677",publication_table3_inferential_FINAL.csv + robustness_panel_FINAL.csv
+A13a,caries_any_rt,Primary,Chi2_Perm,0.08309492786795941,0.0739,CramerV,0.4923623004664704,0.2217,"LOO p-range 0.0371-0.1520; infra-exclusion delta p=0.0689",publication_table3_inferential_FINAL.csv + robustness_panel_FINAL.csv
+A13b,caries_count,Primary,Kruskal,0.25680838659371413,,Epsilon2,0.04522188990538825,0.5136,"LOO p-range 0.1218-0.3992; infra-exclusion delta p=0.0723",publication_table3_inferential_FINAL.csv + robustness_panel_FINAL.csv
+A12cv,doku_anomalisi_var_rt,Primary,RSKF_deltaAUC,,,,,,"delta_auc=0.3420, CI[0.3478,0.7984], note=estimator drift",cv_panel_FINAL.csv
+A14cv,gingivitis,Primary,RSKF_deltaAUC,,,,,,"delta_auc=-0.0184, CI[-0.1244,0.0964]",cv_panel_FINAL.csv
+A13cv,caries_any_rt,Primary,RSKF_deltaAUC,,,,,,"delta_auc=0.0761, CI[-0.0395,0.2222]",cv_panel_FINAL.csv

@@ -1,0 +1,9 @@
+check,status,detail
+occl_tip_allowed_1_4,PASS,
+binary_gingivitis,PASS,
+binary_doku_anomalisi_var,PASS,
+binary_caries_any,PASS,
+binary_infraokluzyon_var,PASS,
+age_non_negative,PASS,
+dmft_non_negative,PASS,
+dentition_code_1_3,PASS,

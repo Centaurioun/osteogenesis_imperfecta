@@ -1,0 +1,6 @@
+metric_name,authoritative_source,reported_value,match_status,comment
+N,publication_table1_overall_FINAL.csv,34,PASS,Variable==N
+doku_anomalisi_var_rt_p_classic,publication_table3_inferential_FINAL.csv,0.096033899298481,PASS,endpoint=doku_anomalisi_var_rt
+gingivitis_p_classic,publication_table3_inferential_FINAL.csv,0.7008835742096772,PASS,endpoint=gingivitis
+caries_any_rt_p_classic,publication_table3_inferential_FINAL.csv,0.0830949278679594,PASS,endpoint=caries_any_rt
+caries_count_p_classic,publication_table3_inferential_FINAL.csv,0.2568083865937141,PASS,endpoint=caries_count

@@ -1,0 +1,5 @@
+endpoint,p_classic,p_permutation,p_holm_primary_family_classic,p_holm_binary_family_perm,interpretive_level
+doku_anomalisi_var_rt,0.096033899298481,0.0941,0.2881016978954432,0.2216999999999999,hypothesis-generating
+gingivitis,0.7008835742096772,0.7666,0.7008835742096772,0.7666,hypothesis-generating
+caries_any_rt,0.0830949278679594,0.0739,,0.2216999999999999,hypothesis-generating
+caries_count,0.2568083865937141,,0.5136167731874283,,hypothesis-generating

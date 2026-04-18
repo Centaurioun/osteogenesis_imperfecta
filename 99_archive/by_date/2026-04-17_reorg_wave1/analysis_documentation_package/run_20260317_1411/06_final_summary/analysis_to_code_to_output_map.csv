@@ -1,0 +1,5 @@
+analysis,code_file,output_files,tier
+Primary descriptive + inferential + robustness + cv,Manuscript_Data/03_analysis_scripts/oi_oro_dental_master_FINAL_1_2.py,publication_table1_overall_FINAL.csv; publication_table2_by_gene_group_FINAL.csv; publication_table3_inferential_FINAL.csv; robustness_panel_FINAL.csv; cv_panel_FINAL.csv; verified_master_table_FINAL.csv,authoritative
+Supporting verification package,missing_statistical_analyses/generate_missing_supporting_analyses.py,"missing_statistical_analyses/*.csv,*.md",supporting
+Main analysis completion round2 packaging,main_analysis_completion/08_scripts/main_analysis_completion_pipeline_round2.py,main_analysis_completion/**/round2 outputs,supporting
+Layer recency assessment for notebook preparation,main_analysis_completion/08_scripts/build_analysis_documentation_package.py,06_final_summary/folder_recency_assessment.csv,supporting

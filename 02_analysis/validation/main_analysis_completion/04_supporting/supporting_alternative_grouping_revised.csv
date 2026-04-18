@@ -1,0 +1,13 @@
+endpoint,scenario,test,statistic,p,expected_min,p_holm_within_endpoint,duplicate_of,is_effectively_duplicate_scenario,interpretive_use
+doku_anomalisi_var_rt,Primary,chi2,7.881051587301588,0.096033899298481,1.4705882352941178,0.2881016978954432,None,False,supporting_sensitivity
+doku_anomalisi_var_rt,k=3,chi2,7.881051587301588,0.096033899298481,1.4705882352941178,0.2881016978954432,Primary,True,supplementary_trace_only
+doku_anomalisi_var_rt,k=4,chi2,7.881051587301588,0.096033899298481,1.4705882352941178,0.2881016978954432,Primary,True,supplementary_trace_only
+gingivitis,Primary,chi2,2.1898738942217206,0.7008835742096772,1.6176470588235294,1.0,None,False,supporting_sensitivity
+gingivitis,k=3,chi2,2.1898738942217206,0.7008835742096772,1.6176470588235294,1.0,Primary,True,supplementary_trace_only
+gingivitis,k=4,chi2,2.1898738942217206,0.7008835742096772,1.6176470588235294,1.0,Primary,True,supplementary_trace_only
+caries_any_rt,Primary,chi2,8.242301587301586,0.0830949278679594,1.4705882352941178,0.2492847836038782,None,False,supporting_sensitivity
+caries_any_rt,k=3,chi2,8.242301587301586,0.0830949278679594,1.4705882352941178,0.2492847836038782,Primary,True,supplementary_trace_only
+caries_any_rt,k=4,chi2,8.242301587301586,0.0830949278679594,1.4705882352941178,0.2492847836038782,Primary,True,supplementary_trace_only
+caries_count_rt,Primary,kruskal,5.311434807256259,0.2568083865937141,,0.7704251597811425,None,False,supporting_sensitivity
+caries_count_rt,k=3,kruskal,5.311434807256259,0.2568083865937141,,0.7704251597811425,Primary,True,supplementary_trace_only
+caries_count_rt,k=4,kruskal,5.311434807256259,0.2568083865937141,,0.7704251597811425,Primary,True,supplementary_trace_only

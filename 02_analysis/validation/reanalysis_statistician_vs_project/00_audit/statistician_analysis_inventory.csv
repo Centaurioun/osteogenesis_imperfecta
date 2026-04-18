@@ -1,0 +1,17 @@
+analysis_id,reported_in_statistician_file,endpoint_name,variable_name_if_known,grouping_variable,coding_assumption,test_used,reported_p_value,reported_effect_size,reported_comment
+A01,Tablo 2,Age by gene mutation,yas,gen_mutasyonu,"continuous; non-normal assumed",Kruskal_Wallis,0.715,,No significant difference
+A02,Tablo 2,OCCL type by gene mutation,occl_tip,gen_mutasyonu,"4-level categorical where 1-4 treated in same family",Fisher_Exact,0.017,,Only statistically significant comparison reported
+A03,Tablo 2,Open bite by gene mutation,open_bite,gen_mutasyonu,binary var/yok,Fisher_Exact,0.681,,No significant difference
+A04,Tablo 2,Cross bite by gene mutation,cross_bite,gen_mutasyonu,binary var/yok,Fisher_Exact,0.124,,No significant difference
+A05,Tablo 2,Over bite by gene mutation,over_bite,gen_mutasyonu,binary var/yok,Fisher_Exact,1.000,,No significant difference
+A06,Tablo 2,Transposition by gene mutation,transpozisyon,gen_mutasyonu,binary var/yok,Fisher_Exact,0.388,,No significant difference
+A07,Tablo 2,Missing tooth by gene mutation,dis_eksikligi,gen_mutasyonu,binary var/yok,Fisher_Exact,1.000,,No significant difference
+A08,Tablo 2,Impacted tooth by gene mutation,gomulu_dis,gen_mutasyonu,binary var/yok,Fisher_Exact,0.780,,No significant difference
+A09,Tablo 2,Supernumerary tooth by gene mutation,arti_dis,gen_mutasyonu,binary var/yok,Fisher_Exact,0.529,,No significant difference
+A10,Tablo 2,Taurodontism by gene mutation,taurodontizm,gen_mutasyonu,binary var/yok,Fisher_Exact,0.768,,No significant difference
+A11,Tablo 2,Root anomaly by gene mutation,kok_anomalisi,gen_mutasyonu,binary var/yok,Fisher_Exact,1.000,,No significant difference
+A12,Tablo 2,Tissue anomaly category by gene mutation,doku_anomalisi,gen_mutasyonu,"4-level categorical: yok/AI/DI/hipoplazi",Fisher_Exact,0.177,,No significant difference
+A13,Tablo 2,Dmft by gene mutation,dmft_dmft,gen_mutasyonu,"treated as continuous/ordinal summary",Kruskal_Wallis,0.257,,No significant difference
+A14,Tablo 2,Gingivitis by gene mutation,gingivitis,gen_mutasyonu,binary var/yok,Fisher_Exact,0.779,,No significant difference
+A15,Tablo 1,Overall descriptive profile,multiple,N/A,"descriptive prevalence and summaries",Descriptive,,,
+A16,Tablo 1,Gene mutation distribution,gen_mutasyonu,N/A,"5-category frequency distribution",Descriptive,,,

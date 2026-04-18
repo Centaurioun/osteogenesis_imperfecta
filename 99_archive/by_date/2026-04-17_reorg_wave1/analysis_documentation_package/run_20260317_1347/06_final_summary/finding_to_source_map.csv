@@ -1,0 +1,9 @@
+finding_id,finding_text,evidence_tag,source_file,source_location,confidence_level
+F01,Cohort size N=34,Authoritative,publication_table1_overall_FINAL.csv,Variable==N,high
+F_doku_anomalisi_var_rt,"doku_anomalisi_var_rt: p_classic=0.096033899298481, p_perm=0.0941, effect=0.481451591461317",Authoritative,publication_table3_inferential_FINAL.csv,endpoint=doku_anomalisi_var_rt,high
+F_gingivitis,"gingivitis: p_classic=0.7008835742096772, p_perm=0.7666, effect=0.2537874222896074",Authoritative,publication_table3_inferential_FINAL.csv,endpoint=gingivitis,high
+F_caries_any_rt,"caries_any_rt: p_classic=0.0830949278679594, p_perm=0.0739, effect=0.4923623004664704",Authoritative,publication_table3_inferential_FINAL.csv,endpoint=caries_any_rt,high
+F_caries_count,"caries_count: p_classic=0.2568083865937141, p_perm=nan, effect=0.0452218899053882",Authoritative,publication_table3_inferential_FINAL.csv,endpoint=caries_count,high
+F_CV_doku_anomalisi_var_rt,"CV doku_anomalisi_var_rt: delta_auc=0.5958333333333333, CI=(0.3821904761904761,0.818240093240093)",Supporting,cv_panel_FINAL.csv,"endpoint=doku_anomalisi_var_rt, cv_method=LOO",medium
+F_CV_gingivitis,"CV gingivitis: delta_auc=-0.0158102766798418, CI=(-0.1422239789196311,0.0988438735177862)",Supporting,cv_panel_FINAL.csv,"endpoint=gingivitis, cv_method=LOO",medium
+F_CV_caries_any_rt,"CV caries_any_rt: delta_auc=0.1, CI=(-0.0400416666666667,0.2583333333333333)",Supporting,cv_panel_FINAL.csv,"endpoint=caries_any_rt, cv_method=LOO",medium

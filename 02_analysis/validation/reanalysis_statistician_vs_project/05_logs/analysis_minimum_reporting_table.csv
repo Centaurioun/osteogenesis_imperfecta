@@ -1,0 +1,7 @@
+analysis_id,analysis_name,layer,variable,coding_logic,test_used,usable_n,key_result,effect_size,correction_info,manuscript_impact,output_file
+A01,Age by gene mutation,legacy,yas,"5 legacy mutation groups",Kruskal_Wallis,34,"non-significant (p=0.715)",,none,"context only",01_legacy_replication/statistician_legacy_replication.csv
+A02,OCCL by gene mutation,legacy,occl_tip,"1/2/3/4 same family (legacy)",Fisher_Exact,34,"significant (p=0.017)",,none,"legacy signal only",01_legacy_replication/statistician_legacy_replication.csv
+A12,Tissue anomaly by group,rule-constrained,doku_anomalisi_var_rt,"dominant-code -> binary",Chi2_Perm,34,"p_perm=0.0941; correction-sensitive",CramerV=0.481,"Holm applied",exploratory signal,02_rule_constrained_replication/rule_constrained_supporting_tables.csv
+A13a,Caries any by group,rule-constrained,caries_any_rt,"dmft_dmft > 0 binary",Chi2_Perm,34,"p_perm=0.0739; correction-sensitive",CramerV=0.492,"Holm applied",definition-sensitive comparative,02_rule_constrained_replication/rule_constrained_supporting_tables.csv
+A13b,Caries count by group,rule-constrained,caries_count,"dmft_dmft count-like",Kruskal,34,"non-significant (p=0.2568)",Epsilon2=0.045,"Holm family context",supportive non-significant,02_rule_constrained_replication/rule_constrained_supporting_tables.csv
+A14,Gingivitis by group,rule-constrained,gingivitis,"binary var/yok",Chi2_Perm,34,"non-significant (p_perm=0.7666)",CramerV=0.254,"Holm applied",supportive null,02_rule_constrained_replication/rule_constrained_supporting_tables.csv

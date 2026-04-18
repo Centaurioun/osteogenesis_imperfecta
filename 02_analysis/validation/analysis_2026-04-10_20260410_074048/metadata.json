@@ -1,0 +1,21 @@
+{
+  "source": "K:\\IdeaProjects\\osteogenesis_imperfecta\\osteogenesis_imperfecta_camber_input_minimal_v1.csv",
+  "created": "2026-04-10T07:40:48.823672",
+  "n": 34,
+  "columns": [
+    "hasta_kodu",
+    "yas",
+    "gen_mutasyonu",
+    "gen_kodu",
+    "occl_tip",
+    "doku_anomalisi",
+    "dmft_dmft",
+    "gingivitis",
+    "doku_anomalisi_var",
+    "caries_any",
+    "infraokluzyon_var",
+    "angle_sinifi",
+    "dentisyon_donemi_kod",
+    "gen_group"
+  ]
+}

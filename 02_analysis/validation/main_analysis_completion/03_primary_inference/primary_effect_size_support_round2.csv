@@ -1,0 +1,5 @@
+endpoint,effect_size_name,effect_size_value,epsilon2_primary,epsilon2_alt
+doku_anomalisi_var_rt,CramerV,0.481451591461317,,
+gingivitis,CramerV,0.2537874222896074,,
+caries_any_rt,CramerV,0.4923623004664704,,
+caries_count,Epsilon2,0.0452218899053882,0.0452218899053882,0.1609525699168563

@@ -1,0 +1,4 @@
+artifact,metric,old_value,new_value,explanation
+Table3,Primary_caries_count_eps2_primary,,,Epsilon2 Primary formulation explicitly documented
+Table3,k=3_caries_count_eps2_primary,,,Epsilon2 Primary formulation explicitly documented
+Table3,k=4_caries_count_eps2_primary,,,Epsilon2 Primary formulation explicitly documented

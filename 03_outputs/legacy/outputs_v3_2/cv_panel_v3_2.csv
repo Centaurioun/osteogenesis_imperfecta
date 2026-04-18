@@ -1,0 +1,4 @@
+scenario,endpoint,model_name,cv_method,auc_age,auc_age_gene,delta_auc,delta_auc_ci_low,delta_auc_ci_high,warnings
+Primary,doku_anomalisi_var_rt,age_vs_age+gene,LOO,0.0,0.5958333333333333,0.5958333333333333,0.3708115842490843,0.8076923076923077,AUC < 0.5 detected.
+Primary,gingivitis,age_vs_age+gene,LOO,0.8181818181818181,0.8023715415019763,-0.015810276679841806,-0.14388384754990927,0.09474937343358385,
+Primary,caries_any_rt,age_vs_age+gene,LOO,0.8083333333333332,0.9083333333333333,0.10000000000000009,-0.042351572039072034,0.2578148148148146,

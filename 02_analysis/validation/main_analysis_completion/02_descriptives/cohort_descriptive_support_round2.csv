@@ -1,0 +1,11 @@
+metric,value
+N_total,34.0
+age_median,11.0
+age_q1,6.0
+age_q3,14.75
+infraokluzyon_n,1.0
+angle_eligible_n,33.0
+caries_any_n,24.0
+gingivitis_n,11.0
+doku_anomalisi_var_n,10.0
+caries_count_median,1.5

@@ -1,0 +1,17 @@
+analysis_id,manuscript_eligibility,main_text_or_supplement_or_exclude,reason,recommended_wording_level
+A01,supplementary-only,supplement,"Age comparison not a primary inferential endpoint in FINAL.1.2",descriptive only
+A02,legacy-reference-only,exclude_from_main_text,"Legacy OCCL significance depends on coding that mixes infraocclusion with Angle classes",do not use in manuscript
+A03,supplementary-only,supplement,"Not carried into primary inferential family under project framework",descriptive only
+A04,supplementary-only,supplement,"Not carried into primary inferential family under project framework",descriptive only
+A05,supplementary-only,supplement,"Not carried into primary inferential family under project framework",descriptive only
+A06,supplementary-only,supplement,"Not carried into primary inferential family under project framework",descriptive only
+A07,supplementary-only,supplement,"Not carried into primary inferential family under project framework",descriptive only
+A08,supplementary-only,supplement,"Not carried into primary inferential family under project framework",descriptive only
+A09,supplementary-only,supplement,"Not carried into primary inferential family under project framework",descriptive only
+A10,supplementary-only,supplement,"Not carried into primary inferential family under project framework",descriptive only
+A11,supplementary-only,supplement,"Not carried into primary inferential family under project framework",descriptive only
+A12,manuscript-eligible,main_text,"Project-valid endpoint with moderate effect size but correction-sensitive significance",exploratory signal
+A13,manuscript-eligible,main_text,"Count-like caries framework is project-valid; effect and significance are definition-sensitive",supported comparative statement
+A14,manuscript-eligible,main_text,"Consistent non-significant result across legacy and project-valid layers",supported comparative statement
+A15,manuscript-eligible,main_text,"Overall descriptive profile remains valid under clarified definitions",supported comparative statement
+A16,manuscript-eligible,main_text,"Runtime gene-group distribution is manuscript-facing grouping standard",supported comparative statement

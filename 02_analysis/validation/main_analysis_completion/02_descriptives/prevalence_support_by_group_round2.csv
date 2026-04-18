@@ -1,0 +1,6 @@
+gene_group,n,doku_anomalisi_var_pct,gingivitis_pct,caries_any_pct,caries_count_median,age_median
+COL1A1,6,16.667,16.667,33.333,0.0,13.0
+COL1A2,7,57.143,28.571,57.143,2.0,11.0
+FKBP10,8,12.5,25.0,100.0,2.5,11.5
+Other,5,0.0,40.0,80.0,1.0,4.0
+P3H1,8,50.0,50.0,75.0,2.0,9.0

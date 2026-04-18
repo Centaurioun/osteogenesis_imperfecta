@@ -1,0 +1,1 @@
+Legacy replication outputs completed in 01_legacy_replication on 2026-03-14.

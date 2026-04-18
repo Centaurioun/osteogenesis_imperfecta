@@ -1,0 +1,17 @@
+analysis_id,statistician_endpoint,project_equivalent,same_construct_yes_no,same_coding_yes_no,same_test_family_yes_no,reanalysis_required_yes_no,main_discrepancy_risk,author_clarification_dependency
+A01,Age by gene mutation,age by runtime gene_group_rt,yes,partial,yes,yes,modeling/reporting discrepancy,no
+A02,OCCL type by gene mutation,Angle_Class (1-3 among eligible) + infraokluzyon_var separate,no,no,no,yes,coding discrepancy,yes
+A03,Open bite by gene mutation,open_bite_rt binary by runtime gene_group_rt,yes,yes,partial,yes,test-selection discrepancy,no
+A04,Cross bite by gene mutation,cross_bite_rt binary by runtime gene_group_rt,yes,yes,partial,yes,test-selection discrepancy,no
+A05,Over bite by gene mutation,over_bite_rt binary by runtime gene_group_rt,yes,yes,partial,yes,test-selection discrepancy,no
+A06,Transposition by gene mutation,transpozisyon_rt binary by runtime gene_group_rt,yes,yes,partial,yes,test-selection discrepancy,no
+A07,Missing tooth by gene mutation,dis_eksikligi_rt binary by runtime gene_group_rt,yes,yes,partial,yes,test-selection discrepancy,no
+A08,Impacted tooth by gene mutation,gomulu_dis_rt binary by runtime gene_group_rt,yes,yes,partial,yes,test-selection discrepancy,no
+A09,Supernumerary tooth by gene mutation,arti_dis_rt binary by runtime gene_group_rt,yes,yes,partial,yes,test-selection discrepancy,no
+A10,Taurodontism by gene mutation,taurodontizm_rt binary by runtime gene_group_rt,yes,yes,partial,yes,test-selection discrepancy,no
+A11,Root anomaly by gene mutation,kok_anomalisi_rt binary by runtime gene_group_rt,yes,yes,partial,yes,test-selection discrepancy,no
+A12,Tissue anomaly category by gene mutation,doku_anomalisi_var_rt (dominant-code binary projection),partial,no,no,yes,variable-definition discrepancy,yes
+A13,Dmft by gene mutation,caries_count + caries_any_rt derived from dmft_dmft,partial,no,partial,yes,variable-definition discrepancy,yes
+A14,Gingivitis by gene mutation,gingivitis_rt binary by runtime gene_group_rt,yes,yes,partial,yes,test-selection discrepancy,no
+A15,Overall descriptive profile,publication_table1_overall_FINAL + verified_master_table_FINAL,yes,partial,N/A,yes,coding discrepancy,yes
+A16,Gene mutation distribution,publication_table2_by_gene_group_FINAL (runtime groups),partial,partial,N/A,yes,coding discrepancy,partial

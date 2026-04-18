@@ -1,0 +1,3 @@
+issue_id,opened_on,status,severity,area,description,evidence_path,owner,next_action,target_date,resolved_on,notes
+ISSUE-001,2026-04-17,open,major,data,Decide canonical location for osteogenesis_imperfecta_original_data.csv,CLAUDE_HANDOFF/05_OPEN_ISSUES_AND_RISKS.md,analysis_owner,Decide copy-or-link into 01_data/raw,2026-04-24,,
+ISSUE-002,2026-04-17,open,major,process,Standardize replication/comparison reports per templates,CLAUDE_HANDOFF/03_REPLICATION_PLAYBOOK.md,workspace_steward,Adopt run folder convention and template completion,2026-04-24,,

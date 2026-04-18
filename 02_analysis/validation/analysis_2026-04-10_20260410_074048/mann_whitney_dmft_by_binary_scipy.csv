@@ -1,0 +1,5 @@
+variable,n0,n1,median0,median1,U,p_value
+gingivitis,23,11,1.0,2.0,97.5,0.28490547003443756
+doku_anomalisi_var,24,10,2.0,0.5,143.0,0.3860525359978415
+caries_any,10,24,0.0,3.0,0.0,4.151258828802699e-06
+infraokluzyon_var,33,1,2.0,0.0,28.5,0.23217936357038793

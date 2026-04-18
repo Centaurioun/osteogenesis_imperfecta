@@ -1,0 +1,5 @@
+scenario,endpoint,p_base,loo_p_min,loo_p_max,loo_delta_p_max_abs,loo_most_influential_id,infra_exclusion_p,infra_exclusion_delta_p,robustness_class_revised,classification_reason_revised
+Primary,doku_anomalisi_var_rt,0.096033899298481,0.0392252764214421,0.1502062756863736,0.0568086228770389,28,0.1124655333768885,0.0164316340784074,fragility-sensitive,Significance threshold crossing or very high perturbation drift
+Primary,gingivitis,0.7008835742096772,0.408373065953603,0.845985047241729,0.2925105082560741,22,0.7685596179436351,0.0676760437339579,fragility-sensitive,Significance threshold crossing or very high perturbation drift
+Primary,caries_any_rt,0.0830949278679594,0.0371062350879427,0.1519536383166264,0.068858710448667,5,0.1519536383166264,0.068858710448667,fragility-sensitive,Significance threshold crossing or very high perturbation drift
+Primary,caries_count,0.2568083865937141,0.1217607430610579,0.3992094682418196,0.1424010816481054,30,0.3291514088601804,0.0723430222664662,partly stable,Direction retained but perturbation magnitude is non-trivial

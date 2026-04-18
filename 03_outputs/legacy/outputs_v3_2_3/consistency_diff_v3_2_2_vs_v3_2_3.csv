@@ -1,0 +1,7 @@
+artifact,metric,old_value,new_value,explanation
+Table3,k=3_doku_anomalisi_var_p_permutation,0.0866,0.0941,Inherited mathematically identical value from duplicate scenario replacing noisy simulation.
+Table3,k=3_gingivitis_p_permutation,0.7646,0.7666,Inherited mathematically identical value from duplicate scenario replacing noisy simulation.
+Table3,k=3_caries_any_p_permutation,0.0751,0.0739,Inherited mathematically identical value from duplicate scenario replacing noisy simulation.
+Table3,k=4_doku_anomalisi_var_p_permutation,0.0928,0.0941,Inherited mathematically identical value from duplicate scenario replacing noisy simulation.
+Table3,k=4_gingivitis_p_permutation,0.7658,0.7666,Inherited mathematically identical value from duplicate scenario replacing noisy simulation.
+Table3,k=4_caries_any_p_permutation,0.0758,0.0739,Inherited mathematically identical value from duplicate scenario replacing noisy simulation.

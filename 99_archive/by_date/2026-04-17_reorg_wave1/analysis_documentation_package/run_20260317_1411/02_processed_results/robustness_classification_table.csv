@@ -1,0 +1,5 @@
+endpoint,robustness_class,classification_reason,loo_delta_p_max_abs,infra_exclusion_delta_p
+doku_anomalisi_var_rt,fragile,Significance/interpretation shifts under perturbation,0.0568086228770389,0.0164316340784074
+gingivitis,fragile,Significance/interpretation shifts under perturbation,0.2925105082560741,0.0676760437339579
+caries_any_rt,fragile,Significance/interpretation shifts under perturbation,0.068858710448667,0.068858710448667
+caries_count,fragile,Significance/interpretation shifts under perturbation,0.1424010816481054,0.0723430222664662

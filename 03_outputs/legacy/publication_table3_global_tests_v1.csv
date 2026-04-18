@@ -1,0 +1,4 @@
+Hipotez_Test,Yontem,Istatistik,p_degeri,Robustluk,Etki_buyuklugu
+Gen_grubu × Doku_anomalisi_var,Ki-kare,χ²=7.881,p=0.096,Permutation p=0.092,Cramers_V=0.481
+Gen_grubu × Gingivitis,Ki-kare,χ²=2.190,p=0.701,,
+Gen_grubu × dmft_dmft,Kruskal–Wallis,H=5.311,p=0.257,,eps2=0.045

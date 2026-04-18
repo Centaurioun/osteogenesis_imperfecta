@@ -1,0 +1,32 @@
+section,variable,legacy_value,source_note
+Table1,Age mean±SD,10.47±5.33,istatistikci-analiz-bulgulari.md
+Table1,Age median (min-max),11.00 (2.00-18.00),istatistikci-analiz-bulgulari.md
+Table1,OCCL type 1 n (%),27 (79.5%),istatistikci-analiz-bulgulari.md
+Table1,OCCL type 2 n (%),1 (2.9%),istatistikci-analiz-bulgulari.md
+Table1,OCCL type 3 n (%),5 (14.7%),istatistikci-analiz-bulgulari.md
+Table1,OCCL type 4 n (%),1 (2.9%),istatistikci-analiz-bulgulari.md
+Table1,Open bite var n (%),6 (17.6%),istatistikci-analiz-bulgulari.md
+Table1,Cross bite var n (%),6 (17.6%),istatistikci-analiz-bulgulari.md
+Table1,Over bite var n (%),2 (5.9%),istatistikci-analiz-bulgulari.md
+Table1,Doku anomalisi var total n (%),10 (29.4%),istatistikci-analiz-bulgulari.md
+Table1,Dmft mean±SD,3.09±3.90,istatistikci-analiz-bulgulari.md
+Table1,Gingivitis var n (%),11 (32.4%),istatistikci-analiz-bulgulari.md
+Table1,Mutation COL1A1 n (%),6 (17.6%),istatistikci-analiz-bulgulari.md
+Table1,Mutation COL1A2 n (%),7 (20.7%),istatistikci-analiz-bulgulari.md
+Table1,Mutation P3H1 n (%),8 (23.5%),istatistikci-analiz-bulgulari.md
+Table1,Mutation FKBP10 n (%),8 (23.5%),istatistikci-analiz-bulgulari.md
+Table1,Mutation Other n (%),5 (14.7%),istatistikci-analiz-bulgulari.md
+Table2,Age by mutation p-value,0.715,istatistikci-analiz-bulgulari.md
+Table2,OCCL by mutation p-value,0.017,istatistikci-analiz-bulgulari.md
+Table2,Open bite by mutation p-value,0.681,istatistikci-analiz-bulgulari.md
+Table2,Cross bite by mutation p-value,0.124,istatistikci-analiz-bulgulari.md
+Table2,Over bite by mutation p-value,1.000,istatistikci-analiz-bulgulari.md
+Table2,Transposition by mutation p-value,0.388,istatistikci-analiz-bulgulari.md
+Table2,Missing tooth by mutation p-value,1.000,istatistikci-analiz-bulgulari.md
+Table2,Impacted tooth by mutation p-value,0.780,istatistikci-analiz-bulgulari.md
+Table2,Supernumerary tooth by mutation p-value,0.529,istatistikci-analiz-bulgulari.md
+Table2,Taurodontism by mutation p-value,0.768,istatistikci-analiz-bulgulari.md
+Table2,Root anomaly by mutation p-value,1.000,istatistikci-analiz-bulgulari.md
+Table2,Doku anomalisi category by mutation p-value,0.177,istatistikci-analiz-bulgulari.md
+Table2,Dmft by mutation p-value,0.257,istatistikci-analiz-bulgulari.md
+Table2,Gingivitis by mutation p-value,0.779,istatistikci-analiz-bulgulari.md

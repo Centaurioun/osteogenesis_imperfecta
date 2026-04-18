@@ -1,0 +1,7 @@
+var1,var2,a,b,c,d,odds_ratio,p_two_sided
+gingivitis,doku_anomalisi_var,5,6,5,18,3.0,0.23181488733082006
+gingivitis,caries_any,10,1,14,9,6.428571428571429,0.11326033450943482
+gingivitis,infraokluzyon_var,0,11,1,22,0.0,1.0
+doku_anomalisi_var,caries_any,5,5,19,5,0.2631578947368421,0.11560649758320372
+doku_anomalisi_var,infraokluzyon_var,0,10,1,23,0.0,1.0
+caries_any,infraokluzyon_var,0,24,1,9,0.0,0.29411764705882354

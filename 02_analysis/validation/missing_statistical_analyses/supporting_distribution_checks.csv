@@ -1,0 +1,5 @@
+endpoint,group_count,n,expected_min,expected_lt5_cells,chi2_p_classic,recommended_primary_inference
+doku_anomalisi_var_rt,5,34,1.4705882352941178,8.0,0.09603389929848109,permutation/exact
+gingivitis,5,34,1.6176470588235294,8.0,0.7008835742096772,permutation/exact
+caries_any_rt,5,34,1.4705882352941178,8.0,0.08309492786795941,permutation/exact
+yas,5,34,,,0.7151471571581405,kruskal

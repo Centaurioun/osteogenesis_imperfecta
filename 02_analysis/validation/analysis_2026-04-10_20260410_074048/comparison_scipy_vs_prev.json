@@ -1,0 +1,58 @@
+[
+  {
+    "analysis": "mann_whitney",
+    "key": "gingivitis",
+    "prev_p": "0.28490547003443745",
+    "new_p": 0.28490547003443756,
+    "prev_U": "97.5",
+    "new_U": 97.5
+  },
+  {
+    "analysis": "mann_whitney",
+    "key": "doku_anomalisi_var",
+    "prev_p": "0.3860525359978416",
+    "new_p": 0.3860525359978415,
+    "prev_U": "97.0",
+    "new_U": 143.0
+  },
+  {
+    "analysis": "mann_whitney",
+    "key": "caries_any",
+    "prev_p": "4.151258828802713e-06",
+    "new_p": 4.151258828802699e-06,
+    "prev_U": "0.0",
+    "new_U": 0.0
+  },
+  {
+    "analysis": "mann_whitney",
+    "key": "infraokluzyon_var",
+    "prev_p": "0.232179363570388",
+    "new_p": 0.23217936357038793,
+    "prev_U": "4.5",
+    "new_U": 28.5
+  },
+  {
+    "analysis": "kruskal",
+    "key": "gen_group",
+    "prev_H": "2.1121140552995348",
+    "new_H": 2.1121140552995348,
+    "prev_eps2": "-0.05720866499092319",
+    "new_eps2": -0.0650995153344988
+  },
+  {
+    "analysis": "kruskal",
+    "key": "dentisyon_donemi_kod",
+    "prev_H": "28.995391705069135",
+    "new_H": 28.995391705069135,
+    "prev_eps2": "0.8180421728808829",
+    "new_eps2": 0.8708190872602947
+  },
+  {
+    "analysis": "kruskal",
+    "key": "gen_kodu",
+    "prev_H": "6.564832949308761",
+    "new_H": 6.564832949308761,
+    "prev_eps2": "-0.04348991062700723",
+    "new_eps2": -0.05740668202764954
+  }
+]
