@@ -1,0 +1,16 @@
+{
+  "run_id": "20260418_1037_post_advisor_round2",
+  "timestamp": "2026-04-18T10:34:30.337907",
+  "seed": 20260228,
+  "permutation_iters": 10000,
+  "dataset_path": "/content/oi_round2_bundle/oi_round2_post_advisor_colab_bundle_20260418/bundle_root/01_data/derived/osteogenesis_imperfecta_analysis_ready_post_advisor_round2_v1_2026-04-18.csv",
+  "dataset_hash": "aaf1a1b7845c17e21155c9ddf205ae1b3fdf7d2838a7da7108eee1e7dc918487",
+  "n_subjects": 34,
+  "python_version": "3.12.13",
+  "numpy_version": "2.0.2",
+  "pandas_version": "2.2.2",
+  "scipy_version": "1.16.3",
+  "statsmodels_version": "0.14.6",
+  "semantic_version": "post_advisor_round2_v1_2026-04-18",
+  "source_authority": "canonical"
+}

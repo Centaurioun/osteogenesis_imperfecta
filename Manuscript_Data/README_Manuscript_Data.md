@@ -1,6 +1,6 @@
 # Manuscript_Data
 
-Bu klasör, bu çalışmanın manuscript yazımı ve başka bir AI sisteme güvenli devri için hazırlanmış **authoritative FINAL.1.2 çalışma paketi**dir. Amaç; veri, analiz, sonuç, figür, bağlam dokümanları, yeniden üretilebilirlik notları ve kalite kontrol kanıtlarını tek yerde, düzenli ve izlenebilir biçimde toplamaktır.
+Bu klasör, bu çalışmanın korunmuş **historical FINAL.1.2 çalışma paketi**dir. Round-two cleanup sonrası artık gelecekteki manuscript-facing authority değil, baseline/provenance referans setidir. Amaç; FINAL.1.2 ile ilgili veri, analiz, sonuç, figür, bağlam dokümanları, yeniden üretilebilirlik notları ve kalite kontrol kanıtlarını tek yerde, düzenli ve izlenebilir biçimde korumaktır.
 
 ## Paket ilkeleri
 
@@ -9,11 +9,11 @@ Bu klasör, bu çalışmanın manuscript yazımı ve başka bir AI sisteme güve
 - Paket hem insan tarafından okunabilir hem de bir AI tarafından kolayca parse edilebilir olacak şekilde sadeleştirilmiştir.
 - Kaynak dosyalar taşınmamış, **kopyalanmıştır**. Proje kökündeki orijinal dosyalar yerinde durur.
 
-## Authoritative vs archival dosyalar
+## Preserved baseline vs archival dosyalar
 
-### Authoritative FINAL.1.2 dosyalar
+### Preserved FINAL.1.2 baseline dosyalar
 
-Bu pakette manuscript ve AI yorumunda birincil otorite kabul edilmesi gereken dosyalar:
+Bu pakette manuscript ve AI yorumunda korunmuş baseline/karşılaştırma otoritesi kabul edilmesi gereken dosyalar:
 
 - `03_analysis_scripts/oi_oro_dental_master_FINAL_1_2.py`
 - `03_analysis_scripts/oi_oro_dental_master_FINAL_1_2.ipynb`
@@ -49,6 +49,12 @@ Her analiz başlığını şu alanlarla eşler:
 - neden yapıldı,
 - hangi ana çıktı dosyalarında bulunuyor,
 - hangi figürlerde görselleştiriliyor.
+
+## Guidance
+
+- `04_manuscript/` is now the round-two manuscript-facing home.
+- Keep this folder as the preserved FINAL.1.2 baseline package.
+- Do not use this folder to define future manuscript-facing authority.
 
 ## Klasör yapısı ve ayrıntılı içerik
 

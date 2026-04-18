@@ -1,15 +1,16 @@
 # 03_outputs
 
-Purpose: analysis outputs separated into active and legacy sets.
+Purpose: baseline, legacy, and provenance outputs separated from the manuscript-facing package.
 
 ## Structure
 
-- `active/outputs_FINAL_1_2/` — canonical final output package.
-- `active/figures_FINAL_1_2/` and `active/figures_FINAL_1_2_TR/` — active figure assets.
+- `active/outputs_FINAL_1_2/` — round-one baseline output package.
+- `active/figures_FINAL_1_2/` and `active/figures_FINAL_1_2_TR/` — round-one baseline figure assets.
 - `legacy/` — older output generations and historical summary files.
-- `reports/` — optional location for comparison reports and run summaries.
+- `reports/` — run summaries, provenance reports, and provisional round-two run folders.
 
 ## Usage
 
-- Write current run outputs to `active/` only if they correspond to canonical lane.
+- Keep round-two manuscript-facing copies under `04_manuscript/`.
+- Use `active/` only for the preserved round-one baseline lane.
 - Put comparison or historical outputs in `legacy/` or `reports/`.

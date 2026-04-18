@@ -3,28 +3,30 @@
 Last updated: 2026-04-18
 Reorg wave: `reorg_wave1_2026-04-17`
 
-## Canonical active lane
+## Authority lanes
 
-- Active notebook: `02_analysis/notebooks/active/oi_oro_dental_master_FINAL_1_2.ipynb`
-- Active script: `02_analysis/scripts/active/oi_oro_dental_master_FINAL_1_2.py`
-- Active build script: `02_analysis/scripts/active/build_FINAL.py`
-- Active outputs: `03_outputs/active/outputs_FINAL_1_2/`
-- Active figures: `03_outputs/active/figures_FINAL_1_2/` and `03_outputs/active/figures_FINAL_1_2_TR/`
+- Manuscript-facing authority: `04_manuscript/`
+- Round-one baseline notebook: `02_analysis/notebooks/active/oi_oro_dental_master_FINAL_1_2.ipynb`
+- Round-one baseline script: `02_analysis/scripts/active/oi_oro_dental_master_FINAL_1_2.py`
+- Round-one baseline build script: `02_analysis/scripts/active/build_FINAL.py`
+- Round-one baseline outputs: `03_outputs/active/outputs_FINAL_1_2/`
+- Round-one baseline figures: `03_outputs/active/figures_FINAL_1_2/` and `03_outputs/active/figures_FINAL_1_2_TR/`
 
 ## Core references
 
 - Data (raw): `01_data/raw/osteogenesis_imperfecta_camber_input_minimal_v1.csv`
 - Data references: `01_data/reference/codebook_v3_fixed.md`, `01_data/reference/gene_map_v1.csv`
-- Manuscript package: `Manuscript_Data/`
+- Manuscript package baseline: `Manuscript_Data/`
+- Manuscript-facing round-two package: `04_manuscript/README.md`
 
 ## Post-advisor semantic revision layer (round-two preparation)
 
-- Controlling status brief: `OI_POST_ADVISOR_DATA_SEMANTICS_AND_ROUND2_REANALYSIS_STATUS_REPORT.md`
-- Binding decision memo: `data_decisions_post_advisor_round2.md`
+- Controlling status brief copy: `04_manuscript/context/semantic_control/OI_POST_ADVISOR_DATA_SEMANTICS_AND_ROUND2_REANALYSIS_STATUS_REPORT.md`
+- Binding decision memo copy: `04_manuscript/context/semantic_control/data_decisions_post_advisor_round2.md`
 - Additive codebook layer: `01_data/reference/codebook_post_advisor_round2_addendum_v1.md`
 - Versioned post-advisor analysis-ready dataset: `01_data/derived/osteogenesis_imperfecta_analysis_ready_post_advisor_round2_v1_2026-04-18.csv`
 - Dataset builder script: `02_analysis/scripts/active/create_post_advisor_round2_dataset.py`
-- Provenance note: `01_data/derived/POST_ADVISOR_ROUND2_PROVENANCE_NOTE.md`
+- Provenance note copy: `04_manuscript/context/provenance_note.md`
 
 ## Governance and prompts
 

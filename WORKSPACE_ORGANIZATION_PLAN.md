@@ -12,7 +12,7 @@ This plan reorganizes the workspace **without deleting files**, preserves histor
 ### 0.2 Protected paths (never move in reorg waves)
 - `.git/`, `.venv/`, `.vscode/`, `.codex/`, `.tmp.driveupload/`
 - Tooling/config roots: `.github/`, `.agents/`
-- Active canonical lane until cutover sign-off is complete.
+- Manuscript-facing and baseline lanes remain protected until cutover sign-off is complete.
 
 ### 0.3 Status definitions (used across this plan)
 - `active`: currently maintained and used for ongoing deliverables.
@@ -21,28 +21,31 @@ This plan reorganizes the workspace **without deleting files**, preserves histor
 - `archive_candidate`: approved for move to archive layout after inventory + logging.
 
 ### 0.4 Reorg success criteria
-1. A single documented canonical analysis lane is visible.
+1. A single documented manuscript-facing authority lane is visible.
 2. Root-level clutter is reduced by moving non-active material into organized domains.
 3. Every moved item is discoverable via index/log files.
 4. No analysis path breaks for canonical notebook/script runs.
 
 ## 1) Active work first: current active locations and recommended focus
 
-1. **Primary active analysis package (already well-structured):**
+1. **Primary manuscript-facing package:**
+   - `04_manuscript/`
+   - Contains the reconciled round-two authority set, semantic-control copies, trace links, and baseline pointers.
+2. **Primary preserved baseline package:**
    - `Manuscript_Data/`
-   - Contains clean sub-structure (`01_protocol_and_docs` ... `07_provenance_and_history`) and registry files (`FILE_REGISTRY.csv`, `ANALYSIS_RESULT_MAP.csv`).
-2. **Primary active outputs (final track):**
+   - Contains the round-one FINAL_1_2 baseline structure and registry files (`FILE_REGISTRY.csv`, `ANALYSIS_RESULT_MAP.csv`).
+3. **Primary preserved outputs (final track baseline):**
    - `outputs_FINAL_1_2/` (FINAL publication-grade outputs and manifests).
-3. **Primary active scripts/notebooks (latest practical lineage):**
+4. **Primary supporting scripts/notebooks (latest practical lineage):**
    - `oi_oro_dental_master_FINAL_1_2.ipynb`, `oi_oro_dental_master_FINAL_1_2.py`
    - Build/figure scripts: `build_FINAL.py`, `make_figures_final_1_2.py`, `make_figures_FINAL_1_2_TR.py`
-4. **Secondary active QA/comparison work:**
+5. **Secondary supporting QA/comparison work:**
    - `main_analysis_completion/`
    - `reanalysis_statistician_vs_project/`
-5. **Recent prompt/governance updates:**
+6. **Recent prompt/governance updates:**
    - `fixing-promot.md`, `.agents/`, `.github/`, `AGENTS.md`
 
-**Recommendation:** treat `Manuscript_Data/` + `outputs_FINAL_1_2/` + `FINAL_1_2` notebook/script pair as the canonical active lane; everything else should be indexed as legacy, support, or archive-candidate.
+**Recommendation:** treat `04_manuscript/` as the manuscript-facing authority package and `Manuscript_Data/` + `outputs_FINAL_1_2/` + `FINAL_1_2` notebook/script pair as preserved baseline/comparison authority; everything else should be indexed as legacy, support, or archive-candidate.
 
 ### 1.1 Execution phases (minimal-disruption)
 1. **Phase A — index-first:** create indexes and labels before moving anything.
@@ -95,7 +98,6 @@ osteogenesis_imperfecta/
 │  ├─ reports/
 │  └─ legacy/
 ├─ 04_manuscript/
-│  └─ Manuscript_Data/
 ├─ 05_operations/
 │  ├─ logs/
 │  ├─ manifests/
@@ -363,7 +365,7 @@ $candidates | Select-Object Name, FullName | Export-Csv -NoTypeInformation -Enco
 
 ### 7.5 First-week rollout agenda
 Day 1:
-- Confirm canonical lane and create `WORKSPACE_INDEX.md`.
+- Confirm manuscript-facing authority lane and create `WORKSPACE_INDEX.md`.
 - Create target folder skeleton and snapshot inventory.
 
 Day 2-3:
