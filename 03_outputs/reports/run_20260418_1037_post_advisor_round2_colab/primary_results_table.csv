@@ -1,0 +1,5 @@
+endpoint,test,chi2,p_value,p_value_permutation,effect_size_cramers_v,has_small_cells,h_stat,effect_size,n_groups
+doku_anomalisi_any,Exact χ² / Permutation,7.881051587301588,0.09603389929848109,0.0926,0.48145159146131705,True,,,
+gingivitis,Exact χ² / Permutation,2.18987389422172,0.7008835742096773,0.7604,0.25378742228960743,True,,,
+caries_any,Exact χ² / Permutation,8.242301587301588,0.08309492786795936,0.0761,0.49236230046647045,True,,,
+caries_count_total,Kruskal-Wallis,,0.25680838659371413,,,,5.311434807256259,0.04522188990538825,5.0
