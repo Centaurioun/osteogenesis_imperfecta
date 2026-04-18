@@ -25,14 +25,14 @@ This file encodes canonical execution rules, variable semantics, statistical gua
 ### `occl_tip` → Angle classification + infraocclusion flag
 - **Rule**: Only `occl_tip ∈ {1, 2, 3}` map to Angle Class I/II/III.
 - **When `occl_tip == 4`**: This is infraocclusion, NOT an Angle class.
-  - Exclude from Angle classification (set to NaN).
-  - Create flag `infraoccluzyon_var = 1`.
+  - Exclude from Angle classification (set primary `angle_sinifi_clean` to NaN).
+  - Create flag `infraoccluzyon_var = 1` (or clean alias `infraokluzyon_var_clean = 1`).
   - Report prevalence of infraocclusion separately.
 - **Source**: `Manuscript_Data/06_ai_handoff_context/copilot-instructions.md`
 
 ### `dmft_dmft` → count-like interpretation
 - **Rule**: `dmft_dmft` is NOT a decomposed DMFT index; it is a count of caries/fillings.
-- **Runtime interpretation**: `caries_count = dmft_dmft`
+- **Runtime interpretation**: `caries_count_total = dmft_dmft` (legacy alias `caries_count` acceptable for backward compatibility)
 - **Binary conversion**: `caries_any = 1 if dmft_dmft > 0 else 0`
 - **Never**: Use as an ordinal Likert-scale variable or apply multinomial/ordinal regression without explicit caries-count justification.
 - **Source**: `Manuscript_Data/04_final_outputs/OUTPUT_SCHEMA_AND_VARIABLE_LINEAGE.md`
@@ -139,8 +139,9 @@ This file encodes canonical execution rules, variable semantics, statistical gua
 | Variable | Type | SAP Rule | Runtime Handling |
 |---|---|---|---|
 | `gen_mutasyonu` | categorical | Derive runtime groups: n≥6 separate, else "Other" | Group COL1A1, COL1A2, FKBP10, P3H1, Other |
-| `occl_tip` | ordinal 1–4 | 1–3 = Angle; 4 = infraocclusion | If 4, exclude from Angle, set flag `infraoccluzyon_var=1` |
-| `dmft_dmft` | count | Interpret as count, not DMFT index | `caries_count = dmft_dmft`, `caries_any = (dmft_dmft > 0)` |
+| `occl_tip` | ordinal 1–4 | 1–3 = Angle; 4 = infraocclusion | If 4, set `angle_sinifi_clean=NaN`; keep separate infra flag |
+| `angle_sinifi_clean` | categorical (1/2/3 or missing) | Primary post-advisor Angle variable | Use only non-missing eligible rows in Angle-family analyses |
+| `dmft_dmft` | count | Interpret as count, not DMFT index | `caries_count_total = dmft_dmft`, `caries_any = (dmft_dmft > 0)` |
 | `doku_anomalisi_var` | binary (0/1) | Primary endpoint (binary) | Kruskal–Wallis for continuous analogs; exact test for binary |
 | `gingivitis` | binary (0/1) | Primary endpoint (binary) | Exact/permutation χ², Holm correction |
 | `caries_any` | binary (0/1) | Primary endpoint (binary) | Exact/permutation χ², or Kruskal–Wallis if using `caries_count` |

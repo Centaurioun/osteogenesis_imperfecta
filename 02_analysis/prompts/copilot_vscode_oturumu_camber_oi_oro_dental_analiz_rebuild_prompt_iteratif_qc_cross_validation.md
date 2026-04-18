@@ -111,18 +111,18 @@ Kontroller:
 
 ### 4.1. `occl_tip` ayrıştırması (Kritik)
 - `infraokluzyon_var = 1 if occl_tip == 4 else 0`
-- `angle_sinifi = occl_tip` yalnızca `occl_tip in {1,2,3}` için; `occl_tip==4` ise `NaN`
+- `angle_sinifi_clean = occl_tip` yalnızca `occl_tip in {1,2,3}` için; `occl_tip==4` ise `NaN`
 
 **Zorunlu raporla**
 - `infraokluzyon_var` prevalansı (n, %)
-- `angle_sinifi` dağılımı (1–3)
+- `angle_sinifi_clean` dağılımı (1–3)
 
 **Kırmızı bayrak:**
 - `occl_tip==4` değerini Angle sınıfı gibi 4. seviye kategori olarak modele/teste sokmak → QC FAIL.
 
 ### 4.2. “DMFT/dmft” (sütun adı `dmft_dmft`) yeniden tanım
 Bu alanı “DMFT indeksi” gibi varsayma. Analizde:
-- `caries_count = dmft_dmft` (ağızdaki çürük diş sayısı)
+- `caries_count_total = dmft_dmft` (ağızdaki çürük diş sayısı)
 - `caries_any = 1 if dmft_dmft > 0 else 0`
 
 **Tutarlılık testi (zorunlu)**
@@ -172,7 +172,7 @@ Bu alanı “DMFT indeksi” gibi varsayma. Analizde:
 - `doku_anomalisi_var` (binary)
 - `gingivitis` (binary)
 - `caries_any` (binary)
-- `caries_count` (sayım; primary nonparametric)
+- `caries_count_total` (sayım; primary nonparametric)
 
 ### 6.2. Global tests (zorunlu)
 Binary sonlanımlar için (gene_group_rt × 0/1):

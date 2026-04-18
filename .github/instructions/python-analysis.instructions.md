@@ -23,7 +23,8 @@ applyTo: '**/*.{py,ipynb}'
 - **Destructive Değişiklik Yasağı:** Raw (ham) veri setini DataFrame içinde okuduktan sonra üzerine in-place (inplace=True) yıkıcı değişiklik yapmayın. Mutlaka bir `df_clean = df.copy()` ile sanal kopyalama (feature engineering scope) yaratın; uyarı almaktan ("SettingWithCopyWarning") kaçının.
 - **Runtime Feature Engineering:**
   - Orijinal CSV içinde `gen_group` yer alsa dahi bunu **predictive** olarak kullanmayın. Uygulama anında (runtime); `gen_mutasyonu` alanını Regex ile temizleyerek `gene_group_rt` sınıflamasını (örn: `COL1A1`, `COL1A2`, `Other`) siz kendiniz inşa edin.
-  - Veri setinde `occl_tip`=4 saptanması anında `angle_sinifi = np.nan` ve `infraokluzyon_var = 1` dönüşümlerini yapmalı ve arkasından `assert df_clean['infraokluzyon_var'].isna().sum() == 0` şeklinde doğrulama eklemelisiniz.
+  - Veri setinde `occl_tip`=4 saptanması anında **primary Angle alanı** `angle_sinifi_clean = np.nan` ve ayrı bayrak `infraokluzyon_var_clean = 1` dönüşümlerini yapın. Legacy uyumluluk gerekiyorsa `angle_sinifi`/`infraokluzyon_var` alanlarını koruyabilirsiniz; ancak analizde öncelik `*_clean` alanlarındadır.
+  - Dönüşüm sonrası `assert df_clean['occl_tip'].isin([1,2,3,4]).all()` ve `assert df_clean.loc[df_clean['occl_tip']==4, 'angle_sinifi_clean'].isna().all()` doğrulamaları zorunludur.
 
 ## 3. İstatistiksel Hesaplama Standardizasyonu (Wrappers)
 - P-değerleri ve etki analizlerini (Effect Size) açıkta bırakmayın. `scipy.stats` içerisinden ilgili formülleri çağıran ve geriye `{'p_value': x, 'effect_size_stat': y}` sözlüğü / tuple'ı döndüren Python "helper (wrapper)" fonksiyonları yazın.
