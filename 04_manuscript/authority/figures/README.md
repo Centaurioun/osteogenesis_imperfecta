@@ -1,11 +1,17 @@
 # Figures
 
-No dedicated round-two figure assets have been surfaced into the manuscript package yet.
+This folder is a figure-policy placeholder for the manuscript package.
 
 ## Current status
 
-- Do not treat this folder as evidence that a final round-two figure set exists here.
-- Until figures are approved and copied in, the manuscript package should rely on the report/table/context materials and on baseline figure links for comparison only.
+- No validated round-two figure assets have been surfaced here yet.
+- Do not treat this folder as evidence that a final round-two figure set exists.
+- Until a human-approved figure set is copied in, the manuscript package should rely on the report, table, semantic-control, and provenance materials instead.
+
+## Policy
+
+- Baseline figures remain comparison-only unless a later wave explicitly approves manuscript surfacing.
+- Any future round-two figure set should be copied here only after it is validated and labeled as manuscript-facing authority.
 
 ## Baseline comparison
 

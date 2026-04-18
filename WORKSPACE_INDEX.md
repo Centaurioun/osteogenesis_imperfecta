@@ -18,6 +18,9 @@ Reorg wave: `reorg_wave1_2026-04-17`
 - Data references: `01_data/reference/codebook_v3_fixed.md`, `01_data/reference/gene_map_v1.csv`
 - Manuscript package baseline: `Manuscript_Data/`
 - Manuscript-facing round-two package: `04_manuscript/README.md`
+- Provisional round-two run folder: `03_outputs/reports/run_20260418_1037_post_advisor_round2/`
+- Operational bundle mirror: `05_operations/colab_bundles/oi_round2_post_advisor_colab_bundle_20260418/`
+- Residual zones needing human review: `archive_misaligned/`, `agents/`
 
 ## Post-advisor semantic revision layer (round-two preparation)
 

@@ -11,7 +11,7 @@ This workspace contains reproducible analysis assets for an osteogenesis imperfe
 ## Start here (quick navigation)
 
 1. `04_manuscript/README.md` — manuscript-facing round-two package entry point.
-2. `WORKSPACE_INDEX.md` — canonical files and current operating references.
+2. `WORKSPACE_INDEX.md` — current operating references and key files.
 3. `CLAUDE_HANDOFF/README.md` — complete Claude-ready handoff package.
 4. `HANDOFF_CLAUDE.md` — concise handoff guide for replication/comparison workflows.
 5. `WORKSPACE_ORGANIZATION_PLAN.md` — structure policy and maintenance rules.

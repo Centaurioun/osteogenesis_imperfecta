@@ -12,6 +12,8 @@ osteogenesis_imperfecta/
 ├─ 05_operations/     # logs/manifests/automation and bundle mirrors
 ├─ 99_archive/        # historical archive (no-delete)
 ├─ Manuscript_Data/   # structured manuscript package
+├─ archive_misaligned/ # residual zone; human review required
+├─ agents/            # residual zone; human review required
 ├─ WORKSPACE_INDEX.md
 ├─ WORKSPACE_ORGANIZATION_PLAN.md
 ├─ workspace_map.csv
@@ -30,6 +32,12 @@ osteogenesis_imperfecta/
 - Legacy notebooks/scripts: `02_analysis/notebooks/legacy/`, `02_analysis/scripts/legacy/`
 - Legacy outputs: `03_outputs/legacy/`
 - Archived waves and move logs: `99_archive/`
+
+## Provisional round-two path
+
+- Non-reconciled run folder: `03_outputs/reports/run_20260418_1037_post_advisor_round2/`
+- Reconciled provenance source: `03_outputs/reports/run_20260418_1037_post_advisor_round2_colab/`
+- Operational bundle mirror: `05_operations/colab_bundles/oi_round2_post_advisor_colab_bundle_20260418/`
 
 ## Post-advisor semantic control path (additive)
 

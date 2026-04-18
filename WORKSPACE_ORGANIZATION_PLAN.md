@@ -17,14 +17,14 @@ This plan reorganizes the workspace **without deleting files**, preserves histor
 ### 0.3 Status definitions (used across this plan)
 - `active`: currently maintained and used for ongoing deliverables.
 - `hold`: not currently edited, but retained for near-term reference.
-- `legacy`: superseded by a newer canonical version; still may be useful for traceability.
+- `legacy`: superseded by a newer tracked version; still may be useful for traceability.
 - `archive_candidate`: approved for move to archive layout after inventory + logging.
 
 ### 0.4 Reorg success criteria
 1. A single documented manuscript-facing authority lane is visible.
 2. Root-level clutter is reduced by moving non-active material into organized domains.
 3. Every moved item is discoverable via index/log files.
-4. No analysis path breaks for canonical notebook/script runs.
+4. No analysis path breaks for preserved notebook/script runs.
 
 ## 1) Active work first: current active locations and recommended focus
 
@@ -155,13 +155,13 @@ Examples:
    - script/notebook name
    - generated outputs list
 
-Version precedence (for identifying latest canonical file):
+Version precedence (for identifying latest preferred file):
 1. higher semantic version (`vX_Y`)
 2. if tied, prefer `final` over `reviewed` over `candidate` over `wip`
 3. if tied, latest `LastWriteTime`
 
 Notebook/script pairing rule:
-- For canonical runs, maintain matching base names for notebook and script when both exist.
+- For preserved runs, maintain matching base names for notebook and script when both exist.
 - Example: `oi_master_analysis_final_v1_2.ipynb` and `oi_master_analysis_final_v1_2.py`.
 
 Sample 8 names (ready-to-use):
@@ -219,7 +219,7 @@ Sample 8 names (ready-to-use):
 ### 4.4 Rollback procedure
 1. If any smoke test fails, pause further moves.
 2. Use the move log to reverse moves in reverse chronological order.
-3. Re-run smoke checks on canonical notebook/script/output paths.
+3. Re-run smoke checks on preserved notebook/script/output paths.
 4. Mark rollback event in `99_archive/snapshots/move_log_YYYYMMDD.csv` with reason.
 
 ### 4.5 Archive quality checks
@@ -230,7 +230,7 @@ Sample 8 names (ready-to-use):
 - Batch acceptance criteria:
    - source batch item count == destination batch item count
    - no files from protected paths included
-   - canonical active notebook/script/output paths still valid
+   - preserved active notebook/script/output paths still valid
 
 ---
 
@@ -239,8 +239,8 @@ Sample 8 names (ready-to-use):
 Use lightweight metadata via index files (Git/cloud/local friendly):
 
 1. **Root index:** `WORKSPACE_INDEX.md`
-   - canonical active notebook
-   - canonical active outputs
+   - preserved active notebook
+   - preserved active outputs
    - latest validated run date
 2. **Folder-level README template:**
    - purpose
@@ -264,8 +264,8 @@ Use lightweight metadata via index files (Git/cloud/local friendly):
 
 ## 6) Step-by-step migration checklist (safe, no deletions)
 
-1. **Freeze naming + canonical sources**
-   - Declare canonical active notebook/script/output set in `WORKSPACE_INDEX.md`.
+1. **Freeze naming + approved sources**
+   - Declare approved active notebook/script/output set in `WORKSPACE_INDEX.md`.
 2. **Snapshot current state**
    - Generate root inventory CSV and top-level checksum list (optional).
 3. **Create new target folders**
@@ -328,11 +328,11 @@ $candidates | Select-Object Name, FullName | Export-Csv -NoTypeInformation -Enco
 
 ### 7.1 Ownership (small team)
 1. **Workspace Steward (1 person):** structure, index, archive policy enforcement.
-2. **Analysis Owner (1 person):** canonical notebook/script lineage and path integrity.
+2. **Analysis Owner (1 person):** preserved notebook/script lineage and path integrity.
 3. **Data Custodian (1 person, can be shared):** raw/reference datasets and codebook/gene map consistency.
 
 ### 7.1.1 Lightweight RACI
-- Canonical lane definition -> **A:** Analysis Owner, **R:** Analysis Owner, **C:** Data Custodian, **I:** Workspace Steward
+- Approved lane definition -> **A:** Analysis Owner, **R:** Analysis Owner, **C:** Data Custodian, **I:** Workspace Steward
 - Archive wave approval -> **A:** Workspace Steward, **R:** Workspace Steward, **C:** Analysis Owner, **I:** Data Custodian
 - Data/reference integrity -> **A:** Data Custodian, **R:** Data Custodian, **C:** Analysis Owner, **I:** Workspace Steward
 - Index/map maintenance -> **A:** Workspace Steward, **R:** Workspace Steward, **C:** Analysis Owner, **I:** Data Custodian
@@ -344,14 +344,14 @@ $candidates | Select-Object Name, FullName | Export-Csv -NoTypeInformation -Enco
   - update `workspace_map.csv`
 - **Biweekly (45 min):**
   - archive wave for superseded outputs/scripts
-  - check canonical run manifests
+  - check run manifests for preserved sources
 - **Monthly (60 min):**
   - full structure audit
   - naming convention compliance check
   - zip old archive partitions (>90 days)
 
 ### 7.3 Review checklist
-- Is there exactly one canonical active notebook?
+- Is there exactly one approved active notebook?
 - Are new outputs landing in `03_outputs/active`?
 - Are legacy items indexed before moving?
 - Are no-delete constraints respected?
