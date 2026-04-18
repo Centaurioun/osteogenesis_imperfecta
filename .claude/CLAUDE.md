@@ -22,7 +22,7 @@ This file encodes canonical execution rules, variable semantics, statistical gua
 
 ## Runtime Transformations (Non-Negotiable)
 
-### `occl_tip` → Angle classification + infraocclusion flag
+### `occl_tip` → Angle classification + infraokluzyon flag
 - **Rule**: Only `occl_tip ∈ {1, 2, 3}` map to Angle Class I/II/III.
 - **When `occl_tip == 4`**: This is infraocclusion, NOT an Angle class.
   - Exclude from Angle classification (set primary `angle_sinifi_clean` to NaN).

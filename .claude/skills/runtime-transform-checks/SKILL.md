@@ -69,7 +69,7 @@ Validation report:
   "variable": "occl_tip",
   "rule": "1–3 = Angle; 4 = infraocclusion",
   "script_inspection": {
-    "infraocclusion_handling": "if occl_tip == 4: infraoccluzyon_var = 1; exclude from Angle",
+    "infraocclusion_handling": "if occl_tip == 4: infraokluzyon_var_clean = 1; exclude from Angle",
     "compliant": true
   },
   "approval": "PASS" | "FAIL"
