@@ -1,0 +1,9 @@
+{
+  "run_id": "20260418_1037_post_advisor_round2",
+  "timestamp": "2026-04-18T07:51:42.692350",
+  "seed": 20260228,
+  "permutation_iters": 1000,
+  "dataset": "osteogenesis_imperfecta_analysis_ready_post_advisor_round2_v1_2026-04-18.csv",
+  "n_subjects": 34,
+  "semantic_version": "post_advisor_round2_v1_2026-04-18"
+}
