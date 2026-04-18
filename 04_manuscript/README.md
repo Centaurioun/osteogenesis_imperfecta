@@ -13,7 +13,7 @@ This is the single manuscript-facing home for the reconciled round-two package.
 ## Current authoritative entry points
 
 - [Authority index](authority/manuscript_authority_index.md)
-- [Semantic-control README](context/semantic_control/OI_POST_ADVISOR_DATA_SEMANTICS_AND_ROUND2_REANALYSIS_STATUS_REPORT.md)
+- [Semantic-control status report](context/semantic_control/OI_POST_ADVISOR_DATA_SEMANTICS_AND_ROUND2_REANALYSIS_STATUS_REPORT.md)
 - [Provenance note](context/provenance_note.md)
 - [Baseline index](baseline/round1_baseline_index.md)
 - [Trace index](trace/analysis_code_index.md)
