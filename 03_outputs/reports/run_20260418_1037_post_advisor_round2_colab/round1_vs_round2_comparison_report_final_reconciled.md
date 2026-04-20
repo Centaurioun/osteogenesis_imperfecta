@@ -1,8 +1,8 @@
 # Round 1 vs Round 2 (Full Colab Run) Comparison Report
 
-**Date:** 2026-04-18  
-**Run ID:** 20260418_1037_post_advisor_round2  
-**Round-1 baseline authority:** `03_outputs/active/outputs_FINAL_1_2/`  
+**Date:** 2026-04-18
+**Run ID:** 20260418_1037_post_advisor_round2
+**Round-1 baseline authority:** `03_outputs/active/outputs_FINAL_1_2/`
 **Round-2 final authority:** `03_outputs/reports/run_20260418_1037_post_advisor_round2_colab/`
 
 ---

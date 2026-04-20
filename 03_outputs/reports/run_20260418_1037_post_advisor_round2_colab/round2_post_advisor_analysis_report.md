@@ -3,11 +3,11 @@
 > **Superseded for final use:** See `round2_post_advisor_analysis_report_final_reconciled.md` in the same folder.
 > This original file is retained for provenance and may contain stale narrative sections.
 
-**Date:** 2026-04-18  
-**Run ID:** 20260418_1037_post_advisor_round2  
-**Data:** `osteogenesis_imperfecta_analysis_ready_post_advisor_round2_v1_2026-04-18.csv`  
-**N:** 34 subjects (1 infraocclusion case excluded from Angle-class analysis)  
-**SEED:** 20260228  
+**Date:** 2026-04-18
+**Run ID:** 20260418_1037_post_advisor_round2
+**Data:** `osteogenesis_imperfecta_analysis_ready_post_advisor_round2_v1_2026-04-18.csv`
+**N:** 34 subjects (1 infraocclusion case excluded from Angle-class analysis)
+**SEED:** 20260228
 **Authority:** canonical (post-advisor semantic layer)
 
 ---
@@ -298,9 +298,9 @@ All outputs written to: `03_outputs/reports/run_20260418_1037_post_advisor_round
 
 ## Sign-Off
 
-**Analysis Authority:** canonical (post-advisor semantic version)  
-**Data Authority:** canonical (post-advisor semantic version: 20260418_1037)  
-**Reproducibility SEED:** 20260228  
-**Date Completed:** 2026-04-18 10:37 UTC  
+**Analysis Authority:** canonical (post-advisor semantic version)
+**Data Authority:** canonical (post-advisor semantic version: 20260418_1037)
+**Reproducibility SEED:** 20260228
+**Date Completed:** 2026-04-18 10:37 UTC
 
 Round-two analysis is complete and ready for downstream manuscript interpretation. All statistical methods conform to the project SAP (small-N discipline, Holm correction, permutation validation, effect-size reporting). Post-advisor semantic revisions have been applied consistently, and results are documented with full provenance and limitation disclosure.

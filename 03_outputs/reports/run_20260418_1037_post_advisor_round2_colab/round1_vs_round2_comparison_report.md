@@ -3,8 +3,8 @@
 > **Superseded for final use:** See `round1_vs_round2_comparison_report_final_reconciled.md` in the same folder.
 > This original file is retained for provenance and may include provisional phrasing.
 
-**Date:** 2026-04-18  
-**Run ID:** 20260418_1037_post_advisor_round2  
+**Date:** 2026-04-18
+**Run ID:** 20260418_1037_post_advisor_round2
 **Comparison Authority:** round-one (`03_outputs/active/outputs_FINAL_1_2/`) vs round-two post-advisor (`03_outputs/reports/run_20260418_1037_post_advisor_round2/`)
 
 ---
@@ -269,7 +269,7 @@ Rationale:
 
 ## Signature
 
-**Analysis Coordinated By:** OI Orchestrator + Authority/Path Guards (post-advisor round-two workflow)  
-**Statistical Methods Reviewed By:** Small-N guardrails and SAP compliance checks  
-**Date:** 2026-04-18 10:37 UTC  
+**Analysis Coordinated By:** OI Orchestrator + Authority/Path Guards (post-advisor round-two workflow)
+**Statistical Methods Reviewed By:** Small-N guardrails and SAP compliance checks
+**Date:** 2026-04-18 10:37 UTC
 **Authority:** canonical (post-advisor semantic version: post_advisor_round2_v1_2026-04-18)

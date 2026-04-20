@@ -6,6 +6,7 @@ Streamlined script with fewer permutation iterations for quick execution.
 
 from pathlib import Path
 import json
+import os
 import numpy as np
 import pandas as pd
 from scipy import stats as sp_stats
@@ -15,13 +16,40 @@ from datetime import datetime
 SEED = 20260228
 np.random.seed(SEED)
 
-try:
-    REPO_ROOT = Path(__file__).resolve().parents[3]
-except:
-    REPO_ROOT = Path('/Users/centaurioun/Repos/osteogenesis_imperfecta/.claude/worktrees/modest-euler-d7d141')
+DATASET_REL_PATH = Path("01_data/derived/osteogenesis_imperfecta_analysis_ready_post_advisor_round2_v1_2026-04-18.csv")
 
-DATA_INPUT = REPO_ROOT / "01_data/derived/osteogenesis_imperfecta_analysis_ready_post_advisor_round2_v1_2026-04-18.csv"
-OUTPUT_DIR = REPO_ROOT / "03_outputs/reports/run_20260418_1037_post_advisor_round2"
+
+def _resolve_repo_root() -> Path:
+    candidates = []
+    if "__file__" in globals():
+        script_path = Path(__file__).resolve()
+        candidates.extend([script_path.parents[3], *script_path.parents])
+
+    cwd = Path.cwd().resolve()
+    candidates.extend([cwd, *cwd.parents])
+
+    seen = set()
+    for candidate in candidates:
+        if candidate in seen:
+            continue
+        seen.add(candidate)
+        if (candidate / DATASET_REL_PATH).exists():
+            return candidate
+
+    raise FileNotFoundError(
+        "Could not resolve repository root containing "
+        f"{DATASET_REL_PATH}. Set OI_ROUND2_REPO_ROOT explicitly."
+    )
+
+
+REPO_ROOT = Path(os.environ.get("OI_ROUND2_REPO_ROOT", _resolve_repo_root())).resolve()
+DATA_INPUT = Path(os.environ.get("OI_ROUND2_DATA_PATH", str(REPO_ROOT / DATASET_REL_PATH))).resolve()
+OUTPUT_DIR = Path(
+    os.environ.get(
+        "OI_ROUND2_OUTPUT_DIR",
+        str(REPO_ROOT / "03_outputs/reports/run_20260418_1037_post_advisor_round2"),
+    )
+).resolve()
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # Load data

@@ -1,10 +1,10 @@
 # Round-Two Post-Advisor Analysis Report (Final Reconciled)
 
-**Date:** 2026-04-18  
-**Run ID:** 20260418_1037_post_advisor_round2  
-**Data:** `01_data/derived/osteogenesis_imperfecta_analysis_ready_post_advisor_round2_v1_2026-04-18.csv`  
-**N:** 34  
-**SEED:** 20260228  
+**Date:** 2026-04-18
+**Run ID:** 20260418_1037_post_advisor_round2
+**Data:** `01_data/derived/osteogenesis_imperfecta_analysis_ready_post_advisor_round2_v1_2026-04-18.csv`
+**N:** 34
+**SEED:** 20260228
 **Output authority:** `03_outputs/reports/run_20260418_1037_post_advisor_round2_colab/`
 
 ---

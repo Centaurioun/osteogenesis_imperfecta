@@ -3,10 +3,10 @@
 > **Superseded for final use:** See `round2_analysis_plan_final_reconciled.md` in the same folder.
 > This original file is retained unchanged for provenance and may contain pre-reconciliation endpoint counts.
 
-**Date:** 2026-04-18  
-**Run ID:** 20260418_1037_post_advisor_round2  
-**Data:** `01_data/derived/osteogenesis_imperfecta_analysis_ready_post_advisor_round2_v1_2026-04-18.csv` (N=34, semantic_version: post_advisor_round2_v1_2026-04-18)  
-**SEED:** 20260228  
+**Date:** 2026-04-18
+**Run ID:** 20260418_1037_post_advisor_round2
+**Data:** `01_data/derived/osteogenesis_imperfecta_analysis_ready_post_advisor_round2_v1_2026-04-18.csv` (N=34, semantic_version: post_advisor_round2_v1_2026-04-18)
+**SEED:** 20260228
 **Authority:** canonical
 
 ---
@@ -156,10 +156,10 @@ All outputs written to `03_outputs/reports/run_20260418_1037_post_advisor_round2
 
 ## Sign-Off & Execution Authority
 
-**Analysis Authority:** canonical (post-advisor semantic version)  
-**Data Authority:** canonical (post-advisor semantic version)  
-**Output Authority:** 03_outputs/reports/run_20260418_1037_post_advisor_round2/  
-**Executable Authority:** Notebook and script in 02_analysis/{notebooks,scripts}/validation/  
+**Analysis Authority:** canonical (post-advisor semantic version)
+**Data Authority:** canonical (post-advisor semantic version)
+**Output Authority:** 03_outputs/reports/run_20260418_1037_post_advisor_round2/
+**Executable Authority:** Notebook and script in 02_analysis/{notebooks,scripts}/validation/
 
-Plan registered: 2026-04-18 10:37 UTC  
+Plan registered: 2026-04-18 10:37 UTC
 Ready for execution.
