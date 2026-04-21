@@ -1,0 +1,512 @@
+# ScholarPeer: A Context-Aware Multi-Agent Framework for Automated Peer Review
+
+Palash Goyal, Mihir Parmar, Yiwen Song, Hamid Palangi, Tomas Pfister, Jinsung Yoon
+
+arXiv:2601.22638v1 - 30 Jan 2026
+https://doi.org/10.48550/arXiv.2601.22638
+
+
+###### Abstract
+
+Automated peer review has evolved from simple text classification to structured feedback generation. However, current state-of-the-art systems still struggle with “surface-level” critiques: they excel at summarizing content but often fail to accurately assess novelty and significance or identify deep methodological flaws because they evaluate papers in a vacuum, lacking the external context a human expert possesses. In this paper, we introduce ScholarPeer, a search-enabled multi-agent framework designed to emulate the cognitive processes of a senior researcher. ScholarPeer employs a dual-stream process of context acquisition and active verification. It dynamically constructs a domain narrative using a historian agent, identifies missing comparisons via a baseline scout, and verifies claims through a multi-aspect Q&A engine, grounding the critique in live web-scale literature. We evaluate ScholarPeer on DeepReview-13K and the results demonstrate that ScholarPeer achieves significant win-rates against state-of-the-art approaches in side-by-side evaluations and reduces the gap to human-level diversity.
+
+## 1 Introduction
+
+The democratization of artificial intelligence research has precipitated an unprecedented explosion in scientific output. Major machine learning conferences now receive tens of thousands of submissions annually, straining the peer review process to its breaking point. This scalability crisis leads to reviewer fatigue, high variance in review quality, and a shortage of qualified experts (zhuang2025large; liang2024can). Consequently, the community has turned to large language models (LLMs) to automate or assist in evaluation of scientific manuscripts (luo2025llm4sr).
+
+Early approaches utilized standard LLMs for classification or fine-tuned models on static datasets (liu2023reviewergpt; weng2024cycleresearcher). While these systems excel at linguistic fluency, they evaluate papers in a parametric vacuum, lacking the external context a human expert possesses. Recent frameworks like DeepReviewer (zhu2025deepreview), ReviewRL (zeng2025reviewrl) and AutoRev (chitale2025autorev) have begun to address this by integrating retrieval. However, these systems largely focus on optimizing the generation policy rather than conducting adversarial auditing or historical contextualization.
+
+To address this, we introduce the ScholarPeer, a search-enabled multi-agent framework designed to emulate the cognitive workflow of a senior researcher. Unlike prior approaches that treat reviewing as a text-generation task, ScholarPeer uses a dynamic research process with active verification.
+
+Our framework distinguishes itself through three key differentiators: a sub-domain historian agent, a baseline scout agent, and question and answer generation agents. The historian agent constructs a “domain narrative”, placing the submission in the context of both seminal and recent work that may not be in the model’s training set. The baseline scout agent acts as an adversarial auditor, specifically hunting for missing baselines and datasets that the authors failed to compare against. Finally, the question and answer generation agents operate as a skeptic, generating probing questions regarding the paper’s claims and verifying them against external sources. This moves the system from “surface-level” critique to “deep” methodological evaluation.
+
+Table 1: Comparison of ScholarPeer against existing automated review frameworks. ScholarPeer uniquely combines dynamic web-scale retrieval with specialized agents for historical contextualization and baseline scouting, addressing the “vacuum evaluation” problem inherent in static models.
+
+|  Feature / Capability          |  CycleReviewer  |  DeepReviewer  |  Agent Review  |  AI Scientist  |  ScholarPeer (Ours)  |
+| ------------------------------ | --------------- | -------------- | -------------- | -------------- | -------------------- |
+|  Architecture Type             |  Fine-tuned     |  Fine-tuned    |  Multi-Agent   |  Multi-Agent   |  Multi-Agent         |
+|  Q & A Generation              |                 |                |                |                |                      |
+|  Dynamic Literature Search     |                 |                |                |                |                      |
+|  Historical Contextualization  |                 |                |                |                |                      |
+|  Missing Baseline Detection    |                 |                |                |                |                      |
+|  Internal Compression          |                 |                |                |                |                      |
+
+![Refer to caption](https://arxiv.org/html/2601.22638v1/x1.png)Figure 1: Comparative evaluation of ScholarPeer against existing frameworks on DeepReview-13K. (Left) Win rate of ScholarPeer against review fine-tuned models and agentic baselines. (Middle) Average H-Max score (higher the better) of reviews generated by various frameworks (best human review is considered as 5). (Right) Spearman correlation of scores generated by review frameworks with ground-truth human rankings. We use Gemini 3 Pro as the backbone model for ScholarPeer and baseline agentic frameworks. We use Claude Sonnet 4.5 as the LLM-judge. These results show that our proposed framework consistently outperforms baselines across various metrics.
+
+We evaluate ScholarPeer on DeepReview-13K. Recognizing that traditional metrics often fail to capture the nuance of scientific critique, we also explore two new evaluation metrics: H-Max score, which calibrates the localized quality of critiques against human experts, and the review diversity score, which assesses the variance of perspectives provided by the system.
+
+![Refer to caption](https://arxiv.org/html/2601.22638v1/x2.png)
+
+Figure 2: The ScholarPeer framework: Given an input paper, the framework employs a dual-stream information retrieval process. The knowledge acquisition and contextualization module uses summarizer, search-enabled literature review, historian and baseline scout agents to compress internal and external information. These inputs feed into the multi-aspect Q&A engine, which generates and answers probing questions regarding the novelty and technical soundness. Finally, the review generator utilizes these inputs and conference-specific review guidelines to generate the final review.
+
+Our main contributions are as follows:
+
+## 2 Problem Formulation
+
+The task of scientific peer review is conventionally modeled as a conditional generation problem: given a submission S, a model Mθ generates a review R such that R∼Pθ(R|S). Existing approaches largely rely on this formulation, optimizing θ via supervised fine-tuning (SFT) or reinforcement learning (RL) on static datasets of paper-review pairs (liu2023reviewergpt; idahl2025openreviewer).
+
+We argue that this formulation is fundamentally flawed because it forces the model to evaluate S in a parametric vacuum. A human expert does not review a paper in isolation; they review it relative to a dynamic mental graph of prior art, concurrent work, and established methodologies. We formally distinguish between the intrinsic content of the paper, Scontent, and its extrinsic context, 𝒞dynamic. Current models approximate P(R|Scontent) relying on frozen weights for context. In contrast, ScholarPeer aims to approximate P(R|Scontent,𝒞dynamic), where 𝒞dynamic is actively constructed at inference time through web-scale retrieval. ScholarPeer is not a single model but a multi-agent orchestration designed to instantiate 𝒞dynamic and interrogate Scontent with the rigor of a senior researcher.
+
+## 3 ScholarPeer
+
+As illustrated in Figure [2](https://arxiv.org/html/2601.22638v1#S1.F2), ScholarPeer operates via a dual-stream process designed to emulate the information-gathering flow of a human expert. It is organized into two primary subsystems: the Knowledge Acquisition and Contextualization Module and the Multi-aspect Q&A Engine.
+
+The core intuition is that reviewing requires two distinct types of compression: internal compression (understanding the paper) and external compression (understanding the field). The acquisition module performs both, feeding a structured context to the Q&A Engine, which acts as a skeptic to verify claims against this constructed reality.
+
+### 3.1 Knowledge Acquisition and Contextualization
+
+This module is responsible for instantiating the dynamic context 𝒞dynamic and the structured paper representation S^. It consists of three agents operating in parallel and sequence:
+
+Summary Agent (Internal Compression). A significant bottleneck in applying LLMs to full-text papers is the “lost-in-the-middle” phenomenon and the cognitive overload associated with processing dense technical tokens simultaneously. Just as nagarajan2025roll argue that maximizing diversity at the output level causes cognitive overload during sampling, we posit that maximizing critique depth on raw text overwhelms the model’s reasoning planning.
+
+To mitigate this, the summary agent—part of the acquisition module shown in Figure [2](https://arxiv.org/html/2601.22638v1#S1.F2)—transforms the raw text of the submission S into a structured representation S^. This is not a generic abstract; it is a review-oriented compression that extracts: (1) The core claim set ℋcore, (2) The proposed method ℳ, and (3) The reported evidence ℰ. By decoupling comprehension from critique, we ensure that downstream agents operate on a high-fidelity signal without expending context window capacity on parsing syntax.
+
+Literature Review & Expansion Agent (Dynamic Context Creation). Standard LLMs frequently hallucinate novelty due to static knowledge cutoffs (huang2025survey). This agent constructs a “live” reference frame, enabling the system to validate claims against the latest literature.
+
+This agent constructs the raw material for 𝒞dynamic by executing a two-step retrieval process. First, it identifies the paper’s sub-domain based on the abstract and performs an initial literature search about the sub-domain using a search engine. Second, it iteratively identifies gaps in the literature search and performs an “expansion search” targeting recent pre-prints and concurrent work (temporal context) with more targeted search. This ensures the review is grounded in the latest state of the field, moving the task from static pattern matching to dynamic fact matching.
+
+Sub-Domain Historian Agent (External Compression & Significance). Retrieving raw abstracts is necessary but insufficient; the model must understand the trajectory of ideas to assess significance. Just as the summary agent compresses the paper to reduce cognitive load, the historian agent compresses the retrieved literature into a narrative.
+
+This agent organizes the retrieved documents into a chronological “domain narrative”, identifying the arc of progress in the sub-domain. This narrative mimics the internal mental model of a senior researcher, who evaluates a new contribution not just as an isolated data point, but as a vector relative to the field’s history. By explicitly constructing this narrative, the agent enables the system to answer high-level questions about significance (e.g., “Is this an incremental tweak or a paradigm shift?”) with nuance that simple retrieval-augmented generation (RAG) cannot achieve.
+
+Baseline Scout Agent (Integrity Checking). Automated systems frequently fail to detect missing baselines, a critical oversight often caught by human reviewers. Unlike generalist models that accept author claims, this agent acts as an adversarial auditor to identify omitted comparisons.
+
+It analyzes the input paper to identify the specific task and dataset, then independently searches for a) the current state-of-the-art methods for the specific benchmarks used in the paper and b) related benchmarks for the specific task. It returns a list of missing baselines and datasets that the authors failed to compare against, providing concrete evidence for the technical soundness critique.
+
+### 3.2 Multi-aspect Q&A Engine: Active Verification
+
+Passive reading leads to surface-level critique. Human reviewers engage in active interrogation, flipping back and forth between sections to check consistency. Inspired by the collaborative simulation in wu2025collabllm, where agents actively clarify intent, our Q&A Engine adopts the persona of a “skeptic” to actively probe the paper’s validity.
+
+Fed by the outputs of the acquisition module (the summary S^, the historian’s domain narrative, and baseline scout agent’s identified missing baselines and datasets), this engine generates a set of probing questions Qprobe targeting specific weaknesses in the method or evidence. For each question, the engine: (1) self-answers based on S^, (2) verifies claims against the domain narrative (e.g., “Is this baseline actually SOTA as claimed?”), and (3) logs discrepancies between the claim and the verification.
+
+This “interrogation log” serves as the primary evidence for the final review, ensuring that critiques are grounded in specific, verified flaws rather than generic complaints.
+
+### 3.3 Review Generator Agent: Guidelines-Driven Synthesis
+
+A robust review system must be adaptable to different venue requirements without retraining. The interrogation log provides the raw verified facts, but the tone, structure, and focus of the final output must align with specific conference standards.
+
+The review generator agent synthesizes the final report by integrating the structured paper summary S^ and the verified Q&A pairs from the interrogation log. Crucially, this agent is conditioned on explicit review guidelines (e.g., the ICLR reviewing form or the NeurIPS checklist). This decoupling of “investigation” (contextualization and Q&A Engine) from “reporting” (review generation) allows ScholarPeer to generate venue-specific reviews—emphasizing novelty for ICLR or rigorous experimentation for NeurIPS—simply by swapping the guideline prompt, ensuring high flexibility and alignment with community standards.
+
+## 4 Experiments
+
+Table 2: Direct comparison of ScholarPeer (Gemini 3 Pro) with baselines across five critical dimensions on DeepReview-13K. “Win” indicates that the judge assessed ScholarPeer as superior. Cells highlighted in green denote the superior outcome of our framework (red indicates that the baseline is superior). ScholarPeer achieves dominant win-rates in Significance Assessment and Constructive Value, validating the impact of the multi-agent reasoning architecture. We use Claude Sonnet 4.5 as the LLM judge.
+
+|  Category                                                                                                                                            |  Baselines                         |  Technical Accuracy  |  Constructive Value  |  Analytical Depth  |  Significance Assessment  |  Overall Judgment  |           |           |           |        |        |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | -------------------- | -------------------- | ------------------ | ------------------------- | ------------------ | --------- | --------- | --------- | ------ | ------ |
+|  Win(%)↑                                                                                                                                             |  Lose(%)                           |  Win(%)↑             |  Lose(%)             |  Win(%)↑           |  Lose(%)                  |  Win(%)↑           |  Lose(%)  |  Win(%)↑  |  Lose(%)  |        |        |
+|  Fine-tuned                                                                                                                                          |  CycleReviewer-8B                  |  98.7                |  0.9                 |  100.0             |  0.0                      |  100.0             |  0.0      |  98.5     |  0.3      |  99.7  |  0.2   |
+|  CycleReviewer-70B                                                                                                                                   |  98.7                              |  1.0                 |  99.8                |  0.2               |  99.8                     |  0.0               |  98.6     |  0.4      |  99.5     |  0.4   |        |
+|  DeepReviewer-7B                                                                                                                                     |  93.2                              |  4.2                 |  98.1                |  1.7               |  97.6                     |  1.3               |  96.0     |  1.7      |  97.6     |  2.2   |        |
+|  DeepReviewer-14B                                                                                                                                    |  77.9                              |  11.7                |  89.2                |  9.3               |  85.9                     |  10.9              |  90.3     |  4.8      |  91.5     |  8.3   |        |
+|  Single Agent                                                                                                                                        |  Claude Sonnet 4.5                 |  44.7                |  24.4                |  74.1              |  20.3                     |  53.8              |  36.5     |  78.2     |  12.7     |  75.1  |  23.4  |
+|  Gemini 3 Flash                                                                                                                                      |  39.5                              |  32.4                |  81.6                |  16.7              |  74.9                     |  18.7              |  77.9     |  13.0     |  78.3     |  21.7  |        |
+|  Gemini 3 Pro                                                                                                                                        |  40.2                              |  33.0                |  76.9                |  18.1              |  69.1                     |  22.5              |  74.9     |  11.8     |  73.0     |  26.1  |        |
+|  Multi Agent                                                                                                                                         |  Agent Review (Claude Sonnet 4.5)  |  33.5                |  33.0                |  59.4              |  38.6                     |  32.5              |  55.8     |  69.1     |  16.2     |  57.9  |  41.6  |
+|  Agent Review (Gemini 3 Flash)                                                                                                                       |  34.7                              |  27.8                |  77.1                |  20.3              |  67.6                     |  26.9              |  75.4     |  13.4     |  76.5     |  23.0  |        |
+|  Agent Review (Gemini 3 Pro)                                                                                                                         |  45.3                              |  28.2                |  83.6                |  13.0              |  80.1                     |  13.4              |  79.0     |  10.1     |  80.0     |  18.9  |        |
+|  AI Scientist v2 (Claude Sonnet 4.5)                                                                                                                 |  37.2                              |  26.1                |  69.8                |  26.6              |  44.7                     |  46.7              |  72.9     |  17.1     |  65.8     |  34.2  |        |
+|  AI Scientist v2 (Gemini 3 Flash)                                                                                                                    |  38.1                              |  34.2                |  76.0                |  20.4              |  63.7                     |  25.8              |  71.2     |  15.5     |  71.0     |  27.0  |        |
+|  AI Scientist v2 (Gemini 3 Pro)                                                                                                                      |  49.2                              |  25.8                |  83.8                |  13.2              |  82.3                     |  11.4              |  78.0     |  10.7     |  81.6     |  18.0  |        |
+|  Stanford Agent Reviewer\*                                                                                                                           |  36.0                              |  32.0                |  52.0                |  46.0              |  38.0                     |  46.0              |  60.0     |  34.0     |  54.0     |  46.0  |        |
+|  \*Stanford Agent Reviewer is not open-source and has only browser based access; evaluation was performed on 50 papers sampled from DeepReview-13K.  |                                    |                      |                      |                    |                           |                    |           |           |           |        |        |
+
+### 4.1 Experimental Setup
+
+Dataset. We utilize the test split of the DeepReview-13K dataset (zhu2025deepreview), which comprises of 1286 papers and reviews from ICLR 2024 and 2025.
+
+Baselines. We categorize our baselines into two groups to isolate the impact of architecture versus training data: (1) Fine-tuned Baselines: We compare against CycleReviewer 8B and 70B (weng2024cycleresearcher) and DeepReviewer 7B and 14B (zhu2025deepreview). These models represent the state-of-the-art in supervised fine-tuning on review data. (2) Agentic Baselines: We compare against AgentReview (jin2024agentreview) and AI Scientist v2 (yamada2025ai), instantiated with various state-of-the-art backbone models including Gemini 3 Flash, Gemini 3 Pro and Claude Sonnet 4.5. We also compare against single agent baselines using single calls to LLMs and Stanford Agent Reviewer (SAR)111https://paperreview.ai/. Stanford Agent Reviewer is not open-source and has only browser based access. To evaluate SAR, we sampled 50 papers from DeepReview-13K (25 from ICLR 2024, 25 from ICLR 2025) and got the reviews.
+
+Implementation. ScholarPeer uses Gemini 3 Pro as the core engine for all agents. Crucially, the literature expansion agent and historian Agent do not rely on static API wrappers (e.g., Semantic Scholar); instead, they utilize a Google Search-enabled LLM. This allows the system to parse non-standard academic sources (e.g., blog posts, GitHub repositories, workshop papers) that often contain the most recent “prior art” but are missed by structured academic databases. We provide further experimental details in Appendix [B](https://arxiv.org/html/2601.22638v1#A2) and the agent prompts in Appendix [G](https://arxiv.org/html/2601.22638v1#A7).
+
+### 4.2 Evaluation Protocols
+
+To comprehensively evaluate the quality of the reviews generated by our framework, we use metrics including LLM-as-a-judge based evaluation, diversity of reviews and alignment of the review scores with human review scores. We provide the complete prompts used for evaluation in Appendix [H](https://arxiv.org/html/2601.22638v1#A8).
+
+Side-by-Side (SxS) Evaluation. We employ an LLM-as-a-Judge setup where the judge is provide with the input paper and the reviews from two anonymized reviews. To improve quality of evaluation, we enable search for the judge, allowing it to verify the existence of papers cited in the reviews. The judge compares the reviews across five dimensions: Technical Accuracy, Constructive Value, Analytical Depth, Significance Assessment, and Overall Judgment. We randomly shuffle the order of the reviews to avoid position bias of language models.
+
+H-Max Score. To trace how AI based review systems advance compared to human reviews, we introduce the H-Max score. An expert judge (search-enabled) evaluates a single AI review for a given paper against the collective set of human reviews for that paper.
+
+The judge identifies the strongest points made by any human reviewer on a specific aspect (e.g., Technical Accuracy) and sets that as the “Expert Baseline”. The AI review is then scored relative to this baseline. An H-Max score of 5 signifies that the AI review is of similar quality as the strongest points made by a set of k reviewers. A score of 10 signifies AI review is transformative compared to the collective set of human reviews, and a score 1 of means the AI review misses critical points. Appendix [F.3](https://arxiv.org/html/2601.22638v1#A6.SS3) contains the complete mapping from score to its interpretation.
+
+Review Diversity Score (RDS). A known failure mode of language models is homogeneity jiang2025artificial. To measure the diversity of agentic frameworks, we generate N=3 reviews for the same paper, compute embeddings using an embedding model E (we used DistilRoberta-v1 sanh2019distilbert for our experiments), and calculate the Inter-review Semantic Similarity in embedding space.
+
+|     |  IRSim=1N(N−1)∑i≠jCosineSim(E(ri),E(rj))  |     |  (1)  |
+| --- | ----------------------------------------- | --- | ----- |
+|     |                                           |     |       |
+
+We define review diversity score (RDS) as 1- IRSim. A higher RDS suggests the model is capable of exploring varying perspectives rather than collapsing to a mean response.
+
+Decision Score Alignment. We evaluate the alignment of the model’s quantitative scores with human ground truth. We request the model to predict the final decision score on a 1-10 scale. We report Spearman Correlation (ρ) between the model’s ranking of papers and the human ranking.
+
+### 4.3 Results
+
+Table 3: H-Max score, human correlation, and review diversity score on DeepReview-13K. H-Max score shows comparison against best human expert reviews. Human corr (ρ) denotes Spearman correlation with human rankings. Review diversity measures semantic variance. ScholarPeer achieves state-of-the-art performance across all metrics.
+
+|  Category                             |  Model                             |  H-Max Score Across Dimensions (1-10)↑  |  Human    |  Review   |             |              |        |        |
+| ------------------------------------- | ---------------------------------- | --------------------------------------- | --------- | --------- | ----------- | ------------ | ------ | ------ |
+|  Tech. Acc.                           |  Cons. Val.                        |  Analytical                             |  Signif.  |  Overall  |  Corr (ρ)↑  |  Diversity↑  |        |        |
+|  Fine-tuned                           |  CycleReviewer-8B                  |  1.96                                   |  2.08     |  1.90     |  2.28       |  1.81        |  0.27  |  0.01  |
+|  CycleReviewer-70B                    |  2.11                              |  2.19                                   |  1.92     |  2.34     |  1.91       |  0.27        |  0.01  |        |
+|  DeepReviewer-7B                      |  3.31                              |  3.51                                   |  3.50     |  3.34     |  3.41       |  0.31        |  0.02  |        |
+|  DeepReviewer-14B                     |  3.80                              |  3.88                                   |  3.82     |  3.40     |  3.69       |  0.36        |  0.02  |        |
+|  Single Agent                         |  Claude Sonnet 4.5                 |  4.67                                   |  4.38     |  4.60     |  4.37       |  4.50        |  0.29  |  0.22  |
+|  Gemini 3 Flash                       |  4.65                              |  4.16                                   |  4.41     |  3.82     |  4.35       |  0.35        |  0.24  |        |
+|  Gemini 3 Pro                         |  4.83                              |  4.33                                   |  4.52     |  3.9      |  4.46       |  0.38        |  0.24  |        |
+|  Multi Agent                          |  Agent Review (Claude Sonnet 4.5)  |  4.57                                   |  4.49     |  4.69     |  4.38       |  4.56        |  0.37  |  0.21  |
+|  Agent Review (Gemini 3 Flash)        |  4.38                              |  4.18                                   |  4.27     |  3.93     |  4.23       |  0.39        |  0.23  |        |
+|  Agent Review (Gemini 3 Pro)          |  4.74                              |  4.30                                   |  4.40     |  4.04     |  4.41       |  0.39        |  0.22  |        |
+|  AI Scientist v2 (Claude Sonnet 4.5)  |  4.71                              |  4.49                                   |  4.68     |  4.60     |  4.62       |  0.37        |  0.21  |        |
+|  AI Scientist v2 (Gemini 3 Flash)     |  5.00                              |  4.63                                   |  4.67     |  4.38     |  4.69       |  0.33        |  0.22  |        |
+|  AI Scientist v2 (Gemini 3 Pro)       |  4.59                              |  4.25                                   |  4.34     |  3.98     |  4.35       |  0.33        |  0.22  |        |
+|  Stanford Agent Reviewer              |  5.5                               |  5.39                                   |  6.22     |  5.56     |  5.89       |  0.4         |  -     |        |
+|  Ours                                 |  ScholarPeer                       |  5.79                                   |  5.88     |  5.86     |  6.49       |  6.14        |  0.42  |  0.29  |
+
+We first validate our LLM-as-a-judge evaluation against human experts to establish trust, then proceed to large-scale automated benchmarking, and finally triangulate these results with a targeted human study and qualitative analysis.
+
+#### 4.3.1 Judge Calibration
+
+Before conducting large-scale automated evaluation, we validated the alignment between our LLM judge and human experts. We randomly sampled 100 papers from DeepReview-13K (50 from ICLR 2024, 50 from ICLR 2025) and their corresponding generated reviews (stratified across all frameworks). We randomly assigned each paper to two expert researchers (authors of ICLR papers) who scored these reviews on the 1-10 H-Max scoring scale defined in our rubric. We averaged the human scores to create a ground truth. The guidelines provided to the expert researchers for performing the evaluation can be found in Appendix [F](https://arxiv.org/html/2601.22638v1#A6).
+
+Claude Sonnet 4.5 achieved a high Pearson correlation of 0.53 on the scoring demonstrating strong alignment with human judgment. Based on this, we selected Claude Sonnet 4.5 as the judge for all automated evaluations. We also provide results with Gemini 3 Pro as the judge in Appendix [D](https://arxiv.org/html/2601.22638v1#A4).
+
+#### 4.3.2 Side-by-Side Results
+
+Table [2](https://arxiv.org/html/2601.22638v1#S4.T2) illustrates the win rate of our framework against various baselines. ScholarPeer achieves a dominant 91.5% win-rate against the strongest fine-tuned baseline (DeepReviewer-14B). Against the strong agentic baseline with the same backbone model, we achieve a win rate of 73%. Even against the strongest closed source multi-agent baseline, Stanford Agent Reviewer, we achieve a 54% win-rate. Despite Claude Sonnet 4.5 being the judge, it scores ScholarPeer consistently higher than Claude based agentic baselines. This illustrates that our framework clearly outperforms the baselines.
+
+We see consistently strong performance across all review dimensions, with our strongest advantage in significance assessment. This validates that our historian and baseline scout agents effectively work together to ground the review in a dynamic context.
+
+Human Evaluation. To complement our automated metrics, we conducted a blinded human evaluation on 100 papers. For each paper, expert reviewers compared the review generated by ScholarPeer against one of five baselines (20 papers per baseline).
+
+As illustrated in Figure [3(a)](https://arxiv.org/html/2601.22638v1#S4.F3.sf1), human experts consistently preferred ScholarPeer . The preference was most pronounced against fine-tuned models and significant win rates against other multi-agent baselines using the same backbone model. We also see a strong correlation of trend between the LLM judge and the human evaluation further validating the results with LLM judge.
+
+![Refer to caption](https://arxiv.org/html/2601.22638v1/x3.png)(a) Side-by-Side (SxS) comparison of human vs. LLM judge win rates.
+
+![Refer to caption](https://arxiv.org/html/2601.22638v1/x4.png)(b) H-Max score comparison of human evaluator vs LLM judge.
+
+![Refer to caption](https://arxiv.org/html/2601.22638v1/x5.png)(c) Distribution of overall scores for the ScholarPeer framework.
+
+Figure 3: Alignment between LLM and human judges. We observe strong agreement in (a) side-by-side (SxS) win rates and (b) H-Max score. Panel (c) illustrates that >25% of the reviews generated by ScholarPeer achieve a score of 8 or higher.
+
+#### 4.3.3 H-Max Results
+
+Table [3](https://arxiv.org/html/2601.22638v1#S4.T3) presents the comprehensive results for the H-Max score, decision score alignment and review diversity. ScholarPeer consistently achieves an H-Max score significantly above the human expert anchor (5.0) across all dimensions, with a particularly strong performance in novelty & significance (6.49) and constructive value (5.88), on average getting between slightly better than the expert human reviews and clearly superior.
+
+Fine-tuned models achieve scores consistently lower than 4, indicating they struggle to match expert human review in quality. State-of-the-art LLMs and multi-agent baselines score around 4.50. Our framework’s score of 6.14 illustrates a significant leap in review quality. Further, Figure [3(c)](https://arxiv.org/html/2601.22638v1#S4.F3.sf3) shows the distribution of score. We observe a significant >25% of generated reviews getting a score of 8.0 or above.
+
+Furthermore, ScholarPeer achieves the highest correlation with human scores with ScholarPeer (ρ=0.42), demonstrating that our system’s ranking of papers aligns most closely with the human ranking.
+
+Human Evaluation. Figure [3(b)](https://arxiv.org/html/2601.22638v1#S4.F3.sf2) shows that ScholarPeer achieves the highest average rating across both human evaluation and LLM judge.
+
+#### 4.3.4 Review Diversity
+
+As shown in Table [3](https://arxiv.org/html/2601.22638v1#S4.T3), fine-tuned models have extremely low review diversity (0.01-0.02), indicating severe mode collapse. Single and multi-agent baselines improve this (up to 0.24). ScholarPeer achieves the highest review diversity of 0.29, reducing the gap to the human diversity of 0.43. We hypothesize that our framework compounds the review diversity through its multi-agent design–multiple runs lead to slightly different literature expansion paths and Q&A probes, simulating the varied knowledge bases of a human committee.
+
+#### 4.3.5 Summary of Gains
+
+Figure 4: Qualitative analysis of ScholarPeer vs. top baselines. We summarize the key comparative advantages and disadvantages derived from the reasoning traces of the LLM Judge. ScholarPeer dominates in external verification (SOTA checking) and contextual depth, while AI Scientist v2 remains competitive on internal consistency checks.
+
+We aggregated the reasoning traces from our LLM judge to distill the systematic advantages and disadvantages of ScholarPeer compared to key baselines. We show the results in Figure [4](https://arxiv.org/html/2601.22638v1#S4.F4). We provide review examples and summary of advantages against other baselines in Appendix [E](https://arxiv.org/html/2601.22638v1#A5) and the summarization prompt in Appendix [H](https://arxiv.org/html/2601.22638v1#A8).
+
+### 4.4 Ablation & Sensitivity Analysis
+
+Table 4: Component ablation results. We compare ScholarPeer and its variants with components removed using SxS win rate (in %) against AI Scientist v2 (Gemini 3 Pro). We use a sample of 200 papers from DeepReview-13K for the ablations.
+
+|  Configuration                |  Win Rate (%)  |
+| ----------------------------- | -------------- |
+|  Full ScholarPeer             |  85            |
+|  w/o Literature Review Agent  |  79 (↓ 6%)     |
+|  w/o Historian Agent          |  81 (↓ 4%)     |
+|  w/o Baseline Scout Agent     |  76 (↓ 9%)     |
+|  w/o Q&A Agent                |  59 (↓ 26%)    |
+|  w/o Summary Agent            |  75 (↓ 10%)    |
+
+![Refer to caption](https://arxiv.org/html/2601.22638v1/x6.png)Figure 5: Impact of search rounds (k) on overall review quality. We observe diminishing returns after k=3, where retrieving tangentially related papers begins to dilute the context window.
+
+Component Ablation. We quantify the contribution of each module in Table [4](https://arxiv.org/html/2601.22638v1#S4.T4). The results highlight the modular importance of our architecture. Removing the literature review agent causes a 6% drop in win-rate, confirming its role in contextualizing the related work. Removing the historian causes a 4% drop in win-rate, confirming that context distillation is required to avoid “lost-in-the-middle” phenomenon. A significant 9% drop occurs removing baseline scout agent, as the system fails to identify missing comparisons—critical for technical accuracy. Removing Q&A agent causes the largest drop (26%), crippling the system’s ability to perform deep verification. The performance drop removing summarizer agent is surprisingly significant (10%) signifying that internal compression also plays a vital role in reviewing.
+
+Hyperparameters. We investigate the sensitivity of the system to the number of Q&A pairs generated and the number of literature expansion rounds. As shown in Figure [5](https://arxiv.org/html/2601.22638v1#S4.F5), performance gains saturate after 10 Q&A pairs and 3 search rounds, suggesting an optimal operating point. We provide complexity analysis in Appendix [C](https://arxiv.org/html/2601.22638v1#A3).
+
+## 5 Related Work
+
+LLM-based Automated Reviewing. The field has rapidly evolved from simple text classification to complex generation tasks (luo2025llm4sr). Early approaches utilized standard pre-trained models for decision prediction and summary generation (liu2023reviewergpt; liang2024can). As models scaled, the focus shifted to supervised fine-tuning (SFT) on large datasets of peer reviews. weng2024cycleresearcher introduced CycleReviewer, utilizing negative constraints to improve critique quality. Similarly, OpenReviewer (idahl2025openreviewer) and ReviewAgents (gao2025reviewagents) fine-tuned models to capture the stylistic norms of venues.
+
+Most relevant to our work is DeepReviewer (zhu2025deepreview), which employs chain-of-thought fine-tuning to improve reasoning depth. However, fundamentally, these systems suffer from the “static vacuum” problem: they rely on frozen parametric knowledge, rendering them unable to accurately assess novelty against papers published after their training cutoff. ScholarPeer addresses with dynamic, web-scale context construction.
+
+Agentic & Retrieval-Augmented Frameworks. To overcome static limitations, the field has pivoted toward agentic workflows (wu2023autogen; bran2023chemcrow). jin2024agentreview pioneered this with Agent Review, modeling the review process as a multi-stage discussion. Building on this collaborative approach, AgentRxiv (schmidgall2025agentrxiv) proposed a framework for autonomous research that facilitates interaction between various agents and human researchers throughout the scientific lifecycle.
+
+Other recent agentic reviewers such as ReviewRL (zeng2025reviewrl) and REMOR (taechoyotin2025remor) integrate reinforcement learning to align reviews with human preferences; REMOR utilizes GRPO with a multi-aspect reward function. AutoRev (chitale2025autorev) models papers as hierarchical graphs to optimize internal information retrieval, while PaperQA2 (skarlinski2025paperqa2) uses agentic RAG on scientific Q&A.
+
+ScholarPeer distinguishes itself through its adversarial and historical focus. While ReviewRL and REMOR optimize the generation policy, ScholarPeer optimizes the context via the historian agent. While AutoRev focuses on internal document structure, ScholarPeer focuses on external domain positioning. Furthermore, while systems like Agent Reviewers (lu2025agentreviewers) use static shared memory pools, ScholarPeer employs live web search to capture the real-time state of the literature.
+
+Foundations of Automated Survey & Verification. Our agentic roles are grounded in the emerging literature of automated science. The historian agent builds upon recent advancements in automated survey generation, such as SurveyG (nguyen2025surveyg) and AutoSurvey (wang2024autosurvey), which demonstrate the feasibility of generating hierarchical citation graphs using LLMs.
+
+The baseline scout agent operationalizes the “chain-of-verification” pattern (dhuliawala2023cove), moving beyond passive retrieval to active claim verification. This aligns with recent work on scientific fact-checking benchmarks like SciFact and Co-Sight (zhang2025cosight), specifically targeting the adversarial task of identifying omitted evidence rather than just contradicting evidence. We summarize the feature addition of our framework in Table [1](https://arxiv.org/html/2601.22638v1#S1.T1).
+
+Evaluation of AI Reviewers. Evaluating automated critiques remains a challenge. garg2025revieweval proposed ReviewEval, a comprehensive framework for assessing actionability and depth. More recently, MMReview (gao2025mmreview) introduced a multimodal benchmark for peer review.
+
+However, standard metrics often fail to capture the systemic risks of large-scale automation. LLM-REVal (li2025llmreval) highlighted the bias of LLM judges toward LLM-generated text, while jiang2025artificial identified the risk of an “artificial hivemind,” where models converge on homogenized opinions. Our work complements these efforts by introducing H-Max score to benchmark against human expert ceilings and the review diversity score to explicitly quantify and mitigate the homogenization risks.
+
+## 6 Conclusion
+
+In this paper, we introduced the ScholarPeer, a multi-agent framework that shifts automated reviewing from static text generation to dynamic research analysis. By explicitly modeling the cognitive workflow of a senior researcher, ScholarPeer verifies claims against a live domain narrative, effectively addressing the “vacuum evaluation” problem. Our extensive evaluation on ICLR submissions demonstrates that ScholarPeer sets a new state-of-the-art, achieving an H-Max score of 6.14 and significantly outperforming strong fine-tuned baselines. Future work will explore collaborative multi-agent debate mechanisms to further bridge the gap between artificial and human scientific critique.
+
+## Impact Statement
+
+This paper introduces a framework for automated peer review, a domain with significant potential for both positive and negative societal impact. On the positive side, our work addresses the critical scalability crisis in scientific publishing. By reducing reviewer fatigue and providing deep, verifiable critiques, ScholarPeer aims to democratize access to high-quality feedback and accelerate scientific progress, particularly for authors who may not have access to senior mentorship.
+
+However, we acknowledge several ethical risks associated with the deployment of automated evaluation systems:
+
+- Automation Bias: There is a risk that human area chairs or reviewers may over-rely on AI-generated reviews, accepting them as authoritative without independent scrutiny. While ScholarPeer’s “skeptic” persona and interrogation logs are designed to provide interpretability and evidence, the risk of human complacency remains a critical deployment challenge.
+
+- Homogenization of Science: Automated systems might penalize novel ideas that do not conform to established patterns in the training data or retrieved literature. Although we introduced the Review Diversity Score specifically to monitor and mitigate this issue, widespread reliance on such models could inadvertently narrow the scope of acceptable scientific inquiry.
+
+- Privacy and Confidentiality: The use of search-enabled agents involves processing unpublished manuscripts via external LLM and search APIs. Any real-world deployment must strictly adhere to conference confidentiality policies, ensuring that submission data is not retained or used to train public models.
+
+We emphasize that ScholarPeer is designed as a decision support system to augment, not replace, human judgment. The system’s output should be treated as a rigorous “second opinion” or a “devil’s advocate” perspective to aid human experts, ensuring that the final decision remains firmly in human hands.
+
+## References
+
+## Appendix A Limitations
+
+While ScholarPeer represents a significant advancement, several limitations remain. First, despite improving upon baselines, the review diversity of our system (0.29) still lags behind the high variance of human expert reviews (0.43); closing this gap is crucial for capturing the full spectrum of scientific opinion. Second, the reliance on active web-scale retrieval introduces higher inference latency and cost compared to static fine-tuned models. Finally, as noted in our qualitative analysis, the system’s strong focus on external verification can occasionally come at the expense of internal sanity checking, leading it to miss logical inconsistencies within a paper’s own text that simpler models might catch.
+
+## Appendix B Experiment Details
+
+To ensure reproducibility, we provide the specific configuration details for the ScholarPeer framework and baselines.
+
+### B.1 Models and Compute
+
+All experiments involving ScholarPeer were conducted using the Google Cloud Vertex AI platform.
+
+### B.2 Search Tools
+
+A critical differentiator of our framework is the use of “live” search tools rather than static retrievers.
+
+### B.3 Evaluation Environment
+
+All evaluations (H-Max score and SxS) were conducted using the Claude Sonnet 4.5 model acting as a judge. The judge was explicitly configured with search capabilities to verify the existence of citations and claims made by the reviewing agents.
+
+### B.4 Inter-Judge Agreement and Correlation
+
+Table 5: Pairwise agreement between LLM judges on the SxS evaluation (overall dimension).
+
+|  Judge Pair                             |  Agreement Rate  |
+| --------------------------------------- | ---------------- |
+|  Claude Sonnet 4.5 vs Gemini 3.0 Flash  |  0.80            |
+|  Claude Sonnet 4.5 vs Gemini 3.0 Pro    |  0.76            |
+|  Gemini 3.0 Flash vs Gemini 3.0 Pro     |  0.89            |
+
+Table 6: Average correlation between the scores provided by the LLM judges for H-Max score.
+
+|  Judge Pair                             |  H-Max Score Correlation  |
+| --------------------------------------- | ------------------------- |
+|  Claude Sonnet 4.5 vs Gemini 3.0 Flash  |  0.65                     |
+|  Claude Sonnet 4.5 vs Gemini 3.0 Pro    |  0.64                     |
+|  Gemini 3.0 Flash vs Gemini 3.0 Pro     |  0.83                     |
+
+Table [5](https://arxiv.org/html/2601.22638v1#A2.T5) provides the pairwise agreement between LLM judges on the SxS evaluation (overall dimension). Gemini 3.0 Flash and 3.0 Pro have the highest agreement rate. This is intuitive as they are from the same model family. Claude Sonnet 4.5 and Gemini 3.0 Pro have the lowest agreement rate but the agreement is still high (76%).
+
+Table [6](https://arxiv.org/html/2601.22638v1#A2.T6) provides the average correlation between the H-Max scores provided by the LLM judges. Similar to agreement rate, Gemini 3.0 Flash and Pro have the highest score correlation and Claude Sonnet 4.5 has lower correlation with Gemini models but the correlation is high (0.64 with Gemini 3.0 Pro).
+
+## Appendix C Computational Complexity Analysis
+
+In this section, we analyze the computational complexity of ScholarPeer framework in terms of the number of Large Language Model (LLM) inference calls. We compare our multi-agent approach against standard fine-tuned and single-agent baselines.
+
+### C.1 ScholarPeer Inference Cost
+
+The computational cost of ScholarPeer is driven by its multi-agent architecture, specifically the depth of the literature search and the rigor of the Q&A verification. The total number of inference calls is defined by a fixed overhead for context construction and synthesis, plus variable costs associated with literature expansion rounds (k) and the number of probing questions generated (NQA):
+
+|     |  CScholarPeer≈Cfixed+k+NQA  |     |  (2)  |
+| --- | --------------------------- | --- | ----- |
+|     |                             |     |       |
+
+The fixed overhead (Cfixed≈7) comprises single calls for the summary agent, initial literature search, historian, baseline Scout, aspect-based question generation (novelty and soundness), and the final review generator.
+
+Based on the hyperparameter sensitivity analysis in Section [4.4](https://arxiv.org/html/2601.22638v1#S4.SS4), we utilize k=3 expansion rounds and generate NQA=10 probing questions to maximize performance while containing costs. This configuration results in approximately 20 calls per paper review.
+
+### C.2 Baseline Comparison
+
+We compare the computational overhead of ScholarPeer against the baselines used in our experiments.
+
+Table 7: Comparison of Computational Complexity (Number of LLM Calls) per Review.
+
+|  Framework                     |  Architecture Type  |  Approx. LLM Calls  |
+| ------------------------------ | ------------------- | ------------------- |
+|  CycleReviewer (8B/70B)        |  Fine-tuned (SFT)   |  1                  |
+|  DeepReviewer (7B/14B)         |  Fine-tuned (SFT)   |  1                  |
+|  Single Agent (Gemini/Claude)  |  Zero-shot          |  1                  |
+|  Agent Review                  |  Multi-Agent        |  ∼5−10              |
+|  AI Scientist v2               |  Multi-Agent        |  ∼5−10              |
+|  ScholarPeer (Ours)            |  Multi-Agent        |  ∼15−20             |
+
+While ScholarPeer incurs a higher computational cost (≈20×) compared to static fine-tuned models, this investment is necessary to enable active verification. Static models (C=1) generate reviews in a single forward pass, which fundamentally limits their ability to perform external literature searches, verify claims, or reason about missing baselines—capabilities that require distinct cognitive steps. The cost of ScholarPeer scales linearly with the depth of interrogation (NQA), allowing users to trade off cost for review rigor.
+
+## Appendix D Experimental Results with Gemini 3.0 Pro LLM Judge
+
+We present results using Gemini 3.0 Pro as the LLM judge instead of Claude Sonnet 4.5 in this section.
+
+### D.1 SxS Results
+
+Table 8: Direct comparison of ScholarPeer (Gemini 3 Pro) with baselines across five critical dimensions on DeepReview-13K with Gemini 3 Pro as the judge. “Win” indicates that the judge assessed ScholarPeer as superior. Cells highlighted in green denote the superior outcome. ScholarPeer achieves dominant win-rates in Significance Assessment and Constructive Value, validating the impact of the multi-agent reasoning architecture.
+
+|  Category                                                                                                                                            |  Baselines                         |  Technical Accuracy  |  Constructive Value  |  Analytical Depth  |  Significance Assessment  |  Overall Judgment  |           |           |           |         |        |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | -------------------- | -------------------- | ------------------ | ------------------------- | ------------------ | --------- | --------- | --------- | ------- | ------ |
+|  Win(%)↑                                                                                                                                             |  Lose(%)                           |  Win(%)↑             |  Lose(%)             |  Win(%)↑           |  Lose(%)                  |  Win(%)↑           |  Lose(%)  |  Win(%)↑  |  Lose(%)  |         |        |
+|  Fine-tuned                                                                                                                                          |  CycleReviewer-8B                  |  100.0               |  0.0                 |  100.0             |  0.0                      |  100.0             |  0.0      |  100.0    |  0.0      |  100.0  |  0.0   |
+|  CycleReviewer-70B                                                                                                                                   |  99.9                              |  0.1                 |  100.0               |  0.0               |  100.0                    |  0.0               |  100.0    |  0.0      |  100.0    |  0.0    |        |
+|  DeepReviewer-7B                                                                                                                                     |  99.8                              |  0.2                 |  99.9                |  0.1               |  99.9                     |  0.1               |  99.0     |  0.5      |  99.9     |  0.1    |        |
+|  DeepReviewer-14B                                                                                                                                    |  98.7                              |  1.0                 |  99.4                |  0.6               |  99.3                     |  0.6               |  98.5     |  0.5      |  99.3     |  0.7    |        |
+|  Single Agent                                                                                                                                        |  Claude 4.5 Sonnet                 |  77.7                |  17.8                |  90.2              |  6.8                      |  81.3              |  17.8     |  89.8     |  5.9      |  88.3   |  11.2  |
+|  Gemini 3 Flash                                                                                                                                      |  72.0                              |  19.7                |  90.1                |  8.4               |  83.2                     |  16.0              |  88.3     |  4.3      |  87.7     |  11.3   |        |
+|  Gemini 3 Pro                                                                                                                                        |  71.8                              |  22.2                |  86.2                |  10.6              |  80.6                     |  18.1              |  84.2     |  8.9      |  86.8     |  12.9   |        |
+|  Multi Agent                                                                                                                                         |  Agent Review (Claude 4.5 Sonnet)  |  72.5                |  20.5                |  89.1              |  8.4                      |  74.6              |  23.3     |  88.1     |  6.7      |  86.5   |  13.5  |
+|  Agent Review (Gemini 3 Flash)                                                                                                                       |  84.5                              |  8.7                 |  93.5                |  4.3               |  93.1                     |  6.6               |  93.2     |  1.5      |  94.1     |  5.6    |        |
+|  Agent Review (Gemini 3 Pro)                                                                                                                         |  69.4                              |  24.5                |  86.9                |  11.1              |  81.8                     |  16.8              |  86.9     |  6.4      |  83.5     |  16.1   |        |
+|  AI Scientist v2 (Claude 4.5 Sonnet)                                                                                                                 |  77.6                              |  17.1                |  87.4                |  9.8               |  78.7                     |  21.1              |  89.6     |  6.4      |  86.2     |  13.8   |        |
+|  AI Scientist v2 (Gemini 3 Flash)                                                                                                                    |  59.1                              |  34.3                |  80.8                |  15.7              |  72.5                     |  25.7              |  84.8     |  8.3      |  75.8     |  24.0   |        |
+|  AI Scientist v2 (Gemini 3 Pro)                                                                                                                      |  68.7                              |  24.8                |  86.1                |  12.2              |  82.9                     |  15.9              |  89.1     |  4.4      |  83.8     |  15.9   |        |
+|  Stanford Agent Reviewer\*                                                                                                                           |  56.0                              |  40.0                |  64.0                |  36.0              |  42.0                     |  56.0              |  66.0     |  20.0     |  64.0     |  36.0   |        |
+|  \*Stanford Agent Reviewer is not open-source and has only browser based access; evaluation was performed on 50 papers sampled from DeepReview-13K.  |                                    |                      |                      |                    |                           |                    |           |           |           |         |        |
+
+Table [8](https://arxiv.org/html/2601.22638v1#A4.T8) presents the results of side-by-side with Gemini 3 Pro as the judge. ScholarPeer achieves a dominant 99.3% win-rate against the strongest fine-tuned baseline (DeepReviewer-14B), an 86.8% win-rate against the strongest single agent baseline (Gemini 3 Pro) and a 75.8% win rate against the strongest open-source multi-agent baseline (AI Scientist v2). Even against the strongest closed source multi-agent baseline, Stanford Agent Reviewer, we achieve a 64% win-rate.
+
+### D.2 H-Max Score Results
+
+Table [9](https://arxiv.org/html/2601.22638v1#A4.T9) presents the H-Max score with Gemini 3 Pro as the judge.
+
+Table 9: H-Max score, human correlation, and diversity on DeepReview-13K using Gemini 3 Pro as the LLM judge. H-Max score shows comparison against best human expert reviews. Human corr (ρ) denotes Spearman correlation with human rankings. Review diversity measures semantic variance. ScholarPeer achieves state-of-the-art performance across all metrics.
+
+|  Category                             |  Model                             |  H-Max Score Across Dimensions (1-10)↑  |  Human    |  Review   |             |              |        |        |
+| ------------------------------------- | ---------------------------------- | --------------------------------------- | --------- | --------- | ----------- | ------------ | ------ | ------ |
+|  Tech. Acc.                           |  Cons. Val.                        |  Analytical                             |  Signif.  |  Overall  |  Corr (ρ)↑  |  Diversity↑  |        |        |
+|  Fine-tuned                           |  CycleReviewer-8B                  |  2.13                                   |  2.29     |  2.21     |  3.42       |  2.08        |  0.27  |  0.01  |
+|  CycleReviewer-70B                    |  2.27                              |  2.38                                   |  2.27     |  3.45     |  2.17       |  0.27        |  0.01  |        |
+|  DeepReviewer-7B                      |  3.97                              |  3.81                                   |  3.58     |  4.13     |  3.41       |  0.31        |  0.02  |        |
+|  DeepReviewer-14B                     |  5.19                              |  4.75                                   |  4.47     |  4.71     |  4.36       |  0.36        |  0.02  |        |
+|  Single Agent                         |  Claude 4.5 Sonnet                 |  7.09                                   |  6.46     |  6.87     |  6.4        |  6.63        |  0.29  |  0.22  |
+|  Gemini 3 Flash                       |  7.24                              |  6.35                                   |  6.51     |  6.07     |  6.46       |  0.35        |  0.24  |        |
+|  Gemini 3 Pro                         |  7.59                              |  6.79                                   |  6.89     |  6.3      |  6.88       |  0.38        |  0.24  |        |
+|  Multi Agent                          |  Agent Review (Claude 4.5 Sonnet)  |  7.21                                   |  6.51     |  6.75     |  6.55       |  6.64        |  0.37  |  0.21  |
+|  Agent Review (Gemini 3 Flash)        |  7.01                              |  6.26                                   |  6.25     |  6.14     |  6.31       |  0.39        |  0.23  |        |
+|  Agent Review (Gemini 3 Pro)          |  7.55                              |  6.81                                   |  6.72     |  6.28     |  6.77       |  0.39        |  0.22  |        |
+|  AI Scientist v2 (Claude 4.5 Sonnet)  |  7.0                               |  6.65                                   |  6.96     |  6.39     |  6.69       |  0.37        |  0.21  |        |
+|  AI Scientist v2 (Gemini 3 Flash)     |  7.59                              |  6.95                                   |  7.06     |  6.51     |  7.01       |  0.33        |  0.22  |        |
+|  AI Scientist v2 (Gemini 3 Pro)       |  7.56                              |  6.85                                   |  6.68     |  6.32     |  6.78       |  0.33        |  0.22  |        |
+|  Stanford Agent Reviewer              |  8.12                              |  8.26                                   |  8.04     |  8.1      |  8.14       |  0.4         |  -     |        |
+|  Ours                                 |  ScholarPeer                       |  8.33                                   |  8.61     |  8.21     |  8.64       |  8.51        |  0.42  |  0.29  |
+
+## Appendix E Qualitative Examples
+
+We present examples of reviews generated by baselines and compare them to ScholarPeer . These examples highlight the system’s ability to identify missing baselines and verify novelty.
+
+### E.1 Example 1: Detection of Missing Baselines
+
+Paper Title: DBRNet: Advancing Individual-Level Continuous Treatment Estimation through Disentangled and Balanced Representation
+OpenReview Link: https://openreview.net/pdf?id=tlqmkftgpw
+
+### E.2 Example 2: Technical Soundness
+
+### E.3 Summary of Gains and Losses
+
+We provide below detailed summaries of the advantages and disadvantages of ScholarPeer against baselines as generated by an LLM based on the reasoning traces of the LLM-as-a-judge based evaluations.
+
+### E.4 ScholarPeer Agent Outputs
+
+We show below the individual agent outputs for a sample paper - DBRNet: Advancing Individual-Level Continuous Treatment Estimation through Disentangled and Balanced Representation (OpenReview Link - https://openreview.net/pdf?id=tlqmkftgpw). The framework’s review for this paper has been provided in Appendix [E.1](https://arxiv.org/html/2601.22638v1#A5.SS1).
+
+## Appendix F Human Evaluation Guidelines
+
+We provided the following instructions to our expert human annotators to ensure a rigorous and standardized evaluation process.
+
+### F.1 1. Objective
+
+We are evaluating the performance of two Agentic Reviewer Systems (ai_review1 and ai_review2). The goal is not just to check if the AI generates coherent text, but to determine if it provides value-add over expert human reviewers. You will compare AI reviews against the Human Reviews (actual reviews submitted for the paper).
+
+### F.2 2. The Evaluation Task
+
+For each assigned paper, you will be presented with:
+
+1. The Paper: (PDF/Text).
+
+2. Human Reviews: The set of actual reviews the paper received.
+
+3. AI Review 1 & AI Review 2: Reviews generated by two different agentic frameworks.
+
+Your Workflow:
+
+1. Scan the Paper: Understand the core contribution, methodology, and claims.
+
+2. Read Human Reviews: Establish the “Expert Baseline.” Note what the humans caught and what they might have missed.
+
+3. Evaluate AI Reviews (Individually): Score both AI reviews on a 1-10 scale against the Human Baseline.
+
+4. Side-by-Side (SxS) Comparison: Determine which of the two AI assistants performed better.
+
+### F.3 3. Part I: Individual Scoring (Scale 1-10)
+
+For each AI review, you will assign a score based on how it compares to the best human review available for that paper.
+
+The Scoring Rubric:
+
+|  Score  |  Label                        |  Definition                                                                                                                                                       |
+| ------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|  9-10   |  Transformative / Superhuman  |  The AI uncovers a critical flaw, a missing theoretical connection, or vital prior work that all human reviewers missed. It fundamentally improves the critique.  |
+|  7-8    |  Clearly Superior             |  The AI is more thorough, constructive, or better substantiated than the best human review. It may offer deeper questions or better literature context.           |
+|  6      |  Slightly Better              |  The AI review is slightly more polished or covers one extra minor point compared to the best human review.                                                       |
+|  5      |  Equivalent / Human Level     |  The AI review is roughly equivalent in quality to the best human review. It covers the same major points with similar depth.                                     |
+|  3-4    |  Slightly Worse               |  The AI review is valid but less nuanced or specific than the best human review.                                                                                  |
+|  1-2    |  Significantly Worse          |  The AI misses critical points, hallucinates details, or is superficial compared to humans.                                                                       |
+
+Evaluation Dimensions:
+
+1. Technical Accuracy: Are the AI’s claims factually correct regarding the paper’s content? Look for hallucinations vs. valid technical critique.
+2. Constructive Value: How actionable is the feedback? Look for specific suggestions (e.g., “Run experiment X on dataset Y”) vs. generic advice.
+3. Analytical Depth: Does the review engage with the substance of the work? Look for deep questioning of assumptions vs. surface-level comments.
+4. Novelty and Significance Assessment: Did the AI correctly identify the novelty?
+5. Overall Score: A holistic assessment of the AI’s utility.
+
+### F.4 4. Part II: Side-by-Side (SxS) Comparison
+
+After scoring individually, compare AI Review 1 vs. AI Review 2 directly.
+
+Options:
+
+Dimensions for SxS:
+
+### F.5 6. Important Notes
+
+## Appendix G Agent Prompts
+
+We provide the system prompts and user templates used for each agent in the ScholarPeer framework. These prompts are defined in prompts.py.
+
+### G.1 Summarizer Agent
+
+### G.2 Literature Review Agent
+
+### G.3 Literature Expansion Agent
+
+### G.4 Sub-Domain Historian Agent
+
+### G.5 Baseline Scout Agent
+
+### G.6 Question Generator Agent
+
+### G.7 Answer Generator Agent
+
+### G.8 Review Generator Agent
+
+## Appendix H Evaluation Prompts
+
+We provide the exact prompts used for our automated evaluation protocols.
+
+### H.1 H-Max Score
+
+Used to score individual reviews against human expert baselines.
+
+### H.2 Side-by-Side (SxS) Evaluation
+
+Used for pairwise preference ranking.
+
+### H.3 Summary of Gains Analysis
+
+Used to synthesize qualitative insights from SxS reasoning traces.

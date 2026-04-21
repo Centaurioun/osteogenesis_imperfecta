@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-04-20T14:13:20.733363",
+  "python_version": "3.13.11 (main, Dec  6 2025, 03:07:48) [Clang 14.0.3 (clang-1403.0.22.14.1)]",
+  "pandas_version": "3.0.2",
+  "seed_global": 20260228,
+  "permutation_iters": 10000,
+  "bootstrap_iters": 2000,
+  "os_info": "posix",
+  "files": {
+    "data": {
+      "path": "osteogenesis_imperfecta_camber_input_minimal_v1.csv",
+      "sha256": null
+    },
+    "sap": {
+      "path": "camber_sap_v2_publication_ready.md",
+      "sha256": null
+    },
+    "codebook": {
+      "path": "codebook_v3_fixed.md",
+      "sha256": null
+    },
+    "brief": {
+      "path": "camber_study_brief_v1.md",
+      "sha256": null
+    }
+  }
+}
